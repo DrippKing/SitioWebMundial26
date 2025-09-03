@@ -1,204 +1,60 @@
-.def {
-    position: relative;
-    margin: 0;
-    padding: 60px;
-    color: white;
-    background-color: #080808;
+.bebas-neue-regular {
+  font-family: "Bebas Neue", sans-serif;
+  font-weight: 400;
+  font-style: normal;
 }
 
-.body {
-    position: relative;
-    margin: 0;
-    padding: 60px;
-    color: white;
+* {
+    font-family: 'Bebas Neue', Helvetica, Arial, sans-serif;
+    font-size:25px;
 }
+body {
+    background-color: gainsboro;
+    background-color: #00142b;
 
-.body::before {
-    background-color: #FFF9AF;
-    content: ""; 
-    position: fixed;
-    top: 0;
-    left: 0;
+}
+.Topbar {
+background-color: #548253;
+width: 100vw;
+height: 140px;
+display: block;
+
+}
+.SearchTopic{
     width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    filter: blur(4px);
-    transform: scale(1.2); 
-    z-index: -1;
-}
-/* La clase madre HackingTheme afecta todo */
-.HackingTheme {
-    --bs-btn-color: #33A1E0;
-    --bs-btn-border-color: rgb(255, 255, 255);
-    --bs-btn-hover-color: #fff;
-    --bs-btn-hover-bg: fuchsia;
-    --bs-btn-hover-border-color: fuchsia;
-    --bs-btn-focus-shadow-rgb: 25, 135, 84;
-    --bs-btn-active-color: black;
-    --bs-btn-active-bg:#33A1E0;
-    --bs-btn-active-border-color: aqua;
-    --bs-btn-active-shadow: inset 0 3px 5px rgba(73, 32, 32, 0.125);
-    --bs-btn-disabled-color: #198754;
-    --bs-btn-disabled-bg: transparent;
-    --bs-btn-disabled-border-color: #198754;
-    --bs-gradient: none;
-}
-
-.HackingTheme .navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 150px;
-    z-index: 1000;
-    --bs-navbar-color: rgb(255, 255, 255);
-    --bs-navbar-hover-color: fuchsia;
-    --bs-navbar-disabled-color: rgba(255, 255, 255, 0.25);
-    --bs-navbar-active-color: fuchsia;
-    --bs-navbar-brand-color: #ffffff;
-    --bs-navbar-brand-hover-color: #ff0000;
-    --bs-navbar-toggler-border-color: rgba(255, 255, 255, 0.1);
-}
-
-
-  /* Contenedor de publicaciones */
-  #postContainer {
-    max-width: 700px;
-    min-width: 700px;
-    margin: auto;
-}
-
-/* Estilo de cada publicación */
-.post {
-    color:white;
-    border: 1px solid fuchsia;
-    background-color: #000000;
-    padding: 20px;
-    border-radius: 10px;
-    margin-bottom: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-}
-
-.post img {
-    align-content: center;
-    width: 100%; /* Ajusta la imagen al ancho del contenedor */
-    height: 393px; /* Define una altura fija para que todas sean cuadradas */
-    object-fit: cover; /* Recorta la imagen para ajustarse sin deformarse */
-    border-radius: 10px; /* Opcional: bordes redondeados */
-
-}
- /* Bloquear el scroll cuando el login está activo */
- body.no-scroll {
-    overflow: hidden;
-}
-
-/* Fondo negro semitransparente con blur */
-#overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.75); /* Oscurece el fondo */
-    backdrop-filter: blur(15px); /* Aplica desenfoque */
-    display: none;
-    z-index: 1000;
-}
-
-/* Contenedor del Login Form */
-#loginForm {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: rgba(10, 10, 10, 0.95); /* Negro con ligera transparencia */
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 0 20px fuchsia;
-    width: 350px;
-    text-align: center;
-    z-index: 1100;
-    display: none;
-}
-
-/* Título del formulario */
-#loginForm h2 {
-    color: white;
-    margin-bottom: 20px;
-    text-shadow: 0 0 8px aqua;
-}
-
-/* Campos de entrada */
-.input-field {
-    width: 100%;
-    padding: 12px;
-    margin-bottom: 15px;  /* MÁS ESPACIO ENTRE CAMPOS */
-    background: black;
-    border: 2px solid fuchsia;
-    color: aqua;
-    border-radius: 8px;
-    outline: none;
-    transition: 0.3s;
-    font-size: 16px;
-}
-
-.input-field:focus {
-    border-color: aqua;
-    box-shadow: 0 0 10px aqua;
-}
-
-/* Botones con efecto neon */
-.btn-modern {
-    display: block;  /* Hace que los botones se coloquen uno debajo del otro */
-    width: 100%;  /* Ajusta el ancho del botón al 100% del contenedor */
-    max-width: 250px; /* Define un tamaño máximo para evitar que sea demasiado ancho */
-    max-height: 50px;
+    background-color: #b7e1b3;
     border: none;
-    border-radius: 8px;
-    font-weight: bold;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: 0.3s;
-    font-size: 14px;
-    margin: 10px auto; /* Centra los botones y agrega separación */
-    text-align: center;
+    margin-left: 20px;
+    margin-right: 20px;
+    color: #548253 !important;
+
+}
+.SearchTopic::placeholder {
+    color: #548253;
 }
 
-/* Botón de "Entrar" */
-.btn-aqua {
-    background: aqua;
-    color: black;
-    box-shadow: 0 0 10px aqua;
+.dropdown-menu.mt6 {
+    background-color: #b7e1b3;
+}
+.dropdown-item.mt6{
+  color: #548253;
 }
 
-.btn-aqua:hover {
-    background: black;
-    color: aqua;
-    border: 2px solid aqua;
+.nav-link.mt6{
+    color:  #b7e1b3;
+}
+.nav-link.mt6.show {
+    color: whitesmoke;
 }
 
-/* Botón de "SignUp" */
-.btn-fuchsia {
-    background: fuchsia;
-    color: black;
-    box-shadow: 0 0 10px fuchsia;
+
+#img155 {
+    width: 100%;
+    height: 600px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
 }
 
-.btn-fuchsia:hover {
-    background: black;
-    color: fuchsia;
-    border: 2px solid fuchsia;
-}
 
-.profile-img{
-    align-content: center;
-    width: 150px; /* Ajusta la imagen al ancho del contenedor */
-    height: 150px; /* Define una altura fija para que todas sean cuadradas */
-    object-fit: cover; /* Recorta la imagen para ajustarse sin deformarse */
-    border-radius: 10px; /* Opcional: bordes redondeados */
-}
+
