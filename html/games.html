@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Interface</title>
+    <link rel="stylesheet" href="games.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <main class="main-container">
+        <aside class="left-panel">
+            <nav class="navigation">
+                <button>PROFILE</button>
+                <button>CHATS</button>
+                <button class="active">GLOBAL</button>
+            </nav>
+
+            <div class="game-list-header">
+                <h2>GAME LIST</h2>
+                <div class="filter-bar">EVERY GAME EVERY TIME</div>
+            </div>
+
+            <ul class="game-list">
+                <li class="game-item">
+                    <span class="status now-playing">NOW PLAYING</span>
+                    <span class="teams">⚽ VS ⚽</span>
+                </li>
+                <li class="game-item highlighted">
+                    <span class="status concluded">CONCLUDED</span>
+                    <span class="teams">⚽ VS ⚽</span>
+                </li>
+                <li class="game-item">
+                    <span class="status on-time">ON TIME</span>
+                    <span class="teams">⚽ VS ⚽</span>
+                </li>
+                <li class="game-item">
+                    <span class="status on-time">ON TIME</span>
+                    <span class="teams">⚽ VS ⚽</span>
+                </li>
+                <li class="game-item">
+                    <span class="status now-playing">NOW PLAYING</span>
+                    <span class="teams">⚽ VS ⚽</span>
+                </li>
+                 <li class="game-item">
+                    <span class="status on-time">ON TIME</span>
+                    <span class="teams">⚽ VS ⚽</span>
+                </li>
+                <li class="game-item">
+                    <span class="status concluded">CONCLUDED</span>
+                    <span class="teams">⚽ VS ⚽</span>
+                </li>
+            </ul>
+        </aside>
+
+        <section class="right-panel">
+            <header class="match-header">
+                <div class="header-label local">LOCAL</div>
+                <div class="header-label visitor">VISITOR</div>
+            </header>
+
+            <div class="matchup">
+                <img src="https://upload.wikimedia.org/wikipedia/en/thumb/f/f3/Mexico_national_football_team_seal.svg/1200px-Mexico_national_football_team_seal.svg.png" alt="Logo de México" class="team-logo">
+                <span class="vs-text">VS</span>
+                <img src="https://upload.wikimedia.org/wikipedia/en/thumb/4/41/Italy_national_football_team_logo.svg/1200px-Italy_national_football_team_logo.svg.png" alt="Logo de Italia" class="team-logo">
+            </div>
+
+            <div class="match-info-card">
+                <div class="details">
+                    <h3>QUARTERFINALS</h3>
+                    <div class="info-item">
+                        <span class="label">PLACE:</span>
+                        <span class="value">Estadio Banamex, MTY, N.L.</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">DRIPPKING POINTS:</span>
+                        <span class="value">500</span>
+                    </div>
+                </div>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Estadio_de_Rayados_2018.jpg/1280px-Estadio_de_Rayados_2018.jpg" alt="Foto del Estadio" class="stadium-image">
+            </div>
+
+            <button class="vote-button">VOTE NOW!</button>
+        </section>
+    </main>
+
+</body>
+</html>

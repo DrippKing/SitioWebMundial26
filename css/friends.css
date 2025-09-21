@@ -1,0 +1,201 @@
+body {
+    background-color: #f0f0f0;
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
+    color: #fff;
+}
+
+/* --- Contenedor Principal --- */
+.main-container {
+    background: #4a4a4a;
+    border-radius: 25px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), inset 0 0 10px rgba(255,255,255,0.1);
+    width: 100%;
+    max-width: 1200px;
+    padding: 20px 30px;
+    border: 1px solid #666;
+}
+
+/* --- Encabezado Principal --- */
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.header-title {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.header-title h1 {
+    font-family: 'Teko', sans-serif;
+    font-size: 4em;
+    color: #d4af37; /* Tono dorado */
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+    margin: 0;
+}
+
+.header-title i {
+    font-size: 2em;
+    color: #fff;
+}
+
+.header-nav .nav-btn {
+    background-color: #333;
+    color: white;
+    border: 1px solid #555;
+    padding: 10px 25px;
+    border-radius: 20px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-left: 10px;
+    transition: all 0.3s ease;
+}
+
+.header-nav .nav-btn:hover, .header-nav .nav-btn.active {
+    background-color: #222;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+/* --- Área de Contenido Principal --- */
+.content-area {
+    display: flex;
+    gap: 25px;
+}
+
+.left-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.right-column {
+    flex: 2;
+    background-color: #333;
+    border-radius: 15px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.friends-section h2 {
+    margin: 0 0 10px;
+    font-size: 1.2em;
+    font-weight: 600;
+    color: #ccc;
+}
+
+.user-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.user-list li {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background-color: #2a2a2a;
+    padding: 8px 12px;
+    border-radius: 8px;
+}
+
+.avatar { width: 40px; height: 40px; border-radius: 50%; }
+.user-icon { background-color: #555; width: 40px; height: 40px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 1.2em; }
+.flag { width: 30px; margin-left: auto; }
+.user-list li span { font-weight: 600; }
+
+.btn-icon {
+    border: none;
+    color: white;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 0.9em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.3s;
+}
+.btn-icon:hover { opacity: 0.8; }
+.btn-remove { background-color: #e76f51; margin-left: auto; }
+.btn-accept { background-color: #2a9d8f; }
+.btn-decline { background-color: #e63946; }
+
+/* --- Columna Derecha --- */
+.search-bar {
+    display: flex;
+    align-items: center;
+    background-color: #2a2a2a;
+    border-radius: 25px;
+    padding: 5px 5px 5px 15px;
+    margin-bottom: 20px;
+}
+.search-bar .fa-search { color: #888; }
+.search-bar input {
+    flex-grow: 1;
+    background: none;
+    border: none;
+    color: white;
+    padding: 8px 10px;
+    font-size: 1em;
+}
+.search-bar input:focus { outline: none; }
+.search-btn {
+    background-color: #2a75bb;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 8px 20px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.results-list-container {
+    background-color: #2a2a2a;
+    border-radius: 10px;
+    padding: 15px;
+    flex-grow: 1;
+}
+
+.results-list-container h3 { margin: 0 0 15px; font-size: 1.1em; }
+.results-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
+.results-list li { display: flex; align-items: center; gap: 15px; padding: 10px; border-radius: 8px; transition: background-color 0.2s; }
+.results-list li.active { background-color: #d4af37; color: #222; }
+.results-list li:not(.active):hover { background-color: #444; cursor: pointer; }
+.results-list li .flag { margin-left: auto; }
+
+/* --- Botones de Acción --- */
+.action-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: 20px;
+}
+.action-btn {
+    border: none;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 0.9em;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+.action-btn:hover { transform: scale(1.05); }
+
+.view-profile { background: linear-gradient(to right, #e76f51, #f4a261); }
+.add-friend { background: linear-gradient(to right, #e9c46a, #f4a261); color: #333; }
