@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chats Interface</title>
+    <link rel="stylesheet" href="chats.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Teko:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+
+    <div class="main-container">
+        <header class="main-header">
+            <div class="header-title">
+                <h1>CHATS</h1>
+                <i class="fas fa-running"></i>
+            </div>
+            <nav class="header-nav">
+                <button class="nav-btn active">PROFILE</button>
+                <button class="nav-btn">FULL GAMES</button>
+                <button class="nav-btn">FRIENDS</button>
+            </nav>
+        </header>
+
+        <div class="chat-layout">
+            <aside class="contacts-panel">
+                <div class="contact-item active">
+                    <img src="https://i.pravatar.cc/150?u=jazmen2002" alt="Avatar" class="avatar">
+                    <span>Jazmen2002</span>
+                    <span class="notification-badge">4</span>
+                </div>
+                <div class="contact-item">
+                    <img src="https://i.pravatar.cc/150?u=gaelkreis" alt="Avatar" class="avatar">
+                    <span>gaelkreis</span>
+                </div>
+                <div class="contact-item channel">
+                    <span><i class="fas fa-crown"></i> TILINES <i class="fas fa-crown"></i></span>
+                </div>
+                <div class="contact-item">
+                    <span>LMEADOS</span>
+                </div>
+            </aside>
+
+            <main class="chat-panel">
+                <header class="chat-header">
+                    <div class="user-info">
+                        <h3>Jazmen2002</h3>
+                    </div>
+                    <div class="chat-actions">
+                        <i class="fas fa-phone"></i>
+                        <i class="fas fa-video"></i>
+                    </div>
+                </header>
+
+                <div class="messages-area">
+                    <div class="message received">
+                        <img src="https://i.pravatar.cc/150?u=jazmen2002" alt="Avatar" class="avatar">
+                        <p>LAAA TAAAAN</p>
+                    </div>
+                    <div class="message received">
+                        <img src="https://i.pravatar.cc/150?u=jazmen2002" alt="Avatar" class="avatar">
+                        <p>Hola profe!!</p>
+                    </div>
+                </div>
+
+                <div class="message-input-area">
+                    <input type="text" placeholder="Llevo 2 horas acá holaaa">
+                    <button class="icon-btn"><i class="fas fa-file-alt"></i></button>
+                    <button class="send-btn"><i class="fas fa-paper-plane"></i></button>
+                </div>
+            </main>
+
+            <aside class="notes-panel">
+                <header class="notes-header">
+                    <h3>LMEADOS <i class="fas fa-info-circle"></i></h3>
+                    <i class="fas fa-phone"></i>
+                </header>
+
+                <div class="checklist-box">
+                    <h4>CHECKLIST</h4>
+                    <div class="check-item">
+                        <input type="checkbox" id="task1" checked>
+                        <label for="task1">Avanzar POI</label>
+                    </div>
+                    <div class="check-item">
+                        <input type="checkbox" id="task2">
+                        <label for="task2">OV Modelos</label>
+                    </div>
+                </div>
+
+                <div class="notes-messages">
+                    <div class="message received">
+                        <img src="https://i.pravatar.cc/150?u=user3" alt="Avatar" class="avatar">
+                        <p>Ni pa' la muela chaparro</p>
+                    </div>
+                    <div class="message received">
+                        <img src="https://i.pravatar.cc/150?u=user4" alt="Avatar" class="avatar">
+                        <p>Una raya más al tigre</p>
+                    </div>
+                </div>
+
+                <div class="notes-input-area">
+                    <input type="text" placeholder="No los conozco">
+                    <button class="icon-btn add-btn"><i class="fas fa-plus"></i></button>
+                    <button class="icon-btn file-btn"><i class="fas fa-folder"></i></button>
+                    <button class="send-btn"><i class="fas fa-paper-plane"></i></button>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+</body>
+</html>

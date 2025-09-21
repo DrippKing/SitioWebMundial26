@@ -1,0 +1,149 @@
+body {
+    background-color: #f0f0f0; /* Un fondo neutro */
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* --- Contenedor Principal --- */
+.main-container {
+    background: #4a4a4a;
+    border-radius: 25px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), inset 0 0 10px rgba(255,255,255,0.1);
+    width: 100%;
+    max-width: 1200px;
+    padding: 20px 30px;
+    border: 1px solid #666;
+}
+
+/* --- Encabezado Principal --- */
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.header-title {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.header-title h1 {
+    font-family: 'Teko', sans-serif;
+    font-size: 4em;
+    margin: 0;
+    /* Efecto de texto dorado con gradiente */
+    background: linear-gradient(to bottom, #d4af37, #b8860b);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+}
+
+.header-title i {
+    font-size: 2em;
+    color: #fff;
+}
+
+.header-nav .nav-btn {
+    background-color: #333;
+    color: white;
+    border: 1px solid #555;
+    padding: 10px 25px;
+    border-radius: 20px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-left: 10px;
+    transition: all 0.3s ease;
+}
+
+.header-nav .nav-btn:hover, .header-nav .nav-btn.active {
+    background-color: #222;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+/* --- Contenedor de la Tabla de Ranking --- */
+.ranking-container {
+    padding: 10px;
+}
+
+.ranking-table {
+    width: 100%;
+    border-collapse: separate; /* Clave para el espaciado entre filas */
+    border-spacing: 0 10px; /* Espaciado vertical de 10px */
+}
+
+/* --- Cabecera de la Tabla --- */
+.ranking-table thead th {
+    color: #ccc;
+    text-align: left;
+    padding: 0 15px 10px;
+    font-size: 1.1em;
+    font-weight: 700;
+}
+
+/* Ancho de las columnas */
+.col-drippkingers { width: 45%; }
+.col-score, .col-games, .col-precision { width: 18.33%; text-align: center; }
+
+
+/* --- Cuerpo de la Tabla --- */
+.ranking-table tbody tr {
+    background-color: #f0f0f0;
+    color: #222;
+    font-weight: 500;
+}
+
+.ranking-table tbody td {
+    padding: 12px 15px;
+    vertical-align: middle;
+}
+
+/* --- Truco para redondear las esquinas de las filas --- */
+.ranking-table tbody td:first-child { border-radius: 8px 0 0 8px; }
+.ranking-table tbody td:last-child { border-radius: 0 8px 8px 0; }
+
+
+/* --- Contenido de Celdas Específicas --- */
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.user-icon {
+    background-color: #555;
+    color: #fff;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2em;
+    flex-shrink: 0;
+}
+
+.user-info span {
+    font-weight: 700;
+    font-size: 1.1em;
+}
+
+.flag {
+    width: 30px;
+    height: auto;
+    margin-left: 10px;
+}
+
+/* Centrar el texto en las columnas numéricas */
+.ranking-table tbody td:not(:first-child) {
+    text-align: center;
+    font-weight: 700;
+    font-size: 1.1em;
+}
