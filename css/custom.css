@@ -16,6 +16,7 @@ body {
   }
   
   body::before {
+    filter: blur(5px);
     content: "";
     position: fixed;
     top: 0;
@@ -78,9 +79,9 @@ menu {
 
 /* 2. ESTILOS PARA LOS BOTONES DENTRO DEL MENÚ */
 menu button {
-    font-size: 35px;
+  font-size: 35px;
   width: 100%; /* Que los botones ocupen el 90% del ancho del menú */
-  padding: 5px;
+  padding: 10px;
   border: none;
   border-radius: 30px;
   background-image: linear-gradient(to right, #a2790d, #f0d27e, #a2790d);
@@ -91,10 +92,10 @@ menu button {
 .gif-en-boton {
     /* --- AÑADE ESTAS DOS LÍNEAS PARA EL AJUSTE FINO --- */
     position: relative; /* Permite mover el elemento desde su posición original */
-    top: -5px;          /* Mueve el GIF 2px hacia arriba. ¡Ajusta este valor! */
+    top: 3px;          /* Mueve el GIF 2px hacia arriba. ¡Ajusta este valor! */
   
     /* --- Tus estilos existentes --- */
-    width: 50px;
+    width: 40px;
     height: auto;
   }
 
