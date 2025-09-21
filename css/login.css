@@ -1,0 +1,83 @@
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(to bottom right, #c4c4a7, #6f6f5e);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+}
+
+.login-container {
+  text-align: center;
+  color: #333;
+}
+
+.welcome-text {
+  font-style: italic;
+  margin-bottom: 20px;
+}
+
+.login-box {
+  background: #222;
+  padding: 30px 40px;
+  border-radius: 20px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+  width: 350px;
+  color: #fff;
+}
+
+.form-group {
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 15px;
+  border: none;
+  outline: none;
+  font-size: 14px;
+}
+
+.player-img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: #fff url('https://cdn-icons-png.flaticon.com/512/1011/1011057.png') center/60% no-repeat;
+  margin: 20px auto;
+  box-shadow: 0 0 15px rgba(0,0,0,0.5);
+}
+
+.btn-continue {
+  background: #e6e6a5;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.btn-continue:hover {
+  background: #d4d480;
+}
+
+.signup-link {
+  display: block;
+  margin-top: 10px;
+  color: #fff;
+  text-decoration: none;
+  font-style: italic;
+}
+
+.signup-link:hover {
+  text-decoration: underline;
+}

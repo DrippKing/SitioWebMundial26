@@ -1,0 +1,88 @@
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(to right, #c4c4a7, #a0a089);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+body {
+    background-image: linear-gradient(to right, #D1C0A8, #FCF8F3, #D1C0A8);
+    background-attachment: scroll;
+    position: relative;
+  }
+  
+  
+.container {
+  background: #222;
+  color: #fff;
+  border-radius: 15px;
+  padding: 20px 40px;
+  width: 700px;
+  display: flex;
+  justify-content: space-between;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+
+input, select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  font-size: 14px;
+}
+
+.photo-section {
+  text-align: center;
+}
+
+.upload-btn {
+  background: #111;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  margin-bottom: 15px;
+}
+
+.photo-preview {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: #fff url('https://cdn-icons-png.flaticon.com/512/1011/1011057.png') center/60% no-repeat;
+  margin: 0 auto;
+  box-shadow: 0 0 10px rgba(0,0,0,0.4);
+}
+
+.btn-continue {
+  background: #e6e6a5;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 20px;
+  font-weight: bold;
+  margin-top: 20px;
+  cursor: pointer;
+}
+
+.btn-continue:hover {
+  background: #d4d480;
+}
+
+.left {
+  width: 60%;
+}
+.right {
+  width: 35%;
+}
