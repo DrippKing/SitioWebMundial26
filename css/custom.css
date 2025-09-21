@@ -10,6 +10,7 @@
 }
 body {
     background-image: linear-gradient(to right, #D1C0A8, #FCF8F3, #D1C0A8);
+    background-color: black;
     background-attachment: scroll;
     position: relative;
   }
@@ -40,17 +41,14 @@ body {
     /* --- CAMBIOS AQUÍ --- */
     width: 80%;         /* Ocupará el 80% del ancho de la pantalla */
     max-width: 1000px;  /* Pero nunca será más grande que 1000px */
-    
-    margin: 60px auto 0;
+    margin: 80px auto 0;
   }
   
   /* 2. El logo de fondo no necesita cambios */
   #DK_Logo {
-    width: 90%;
+    width: 100%;
     height: auto;
     display: block;
-    transform: translate(5%, -15%);
-
   }
   
   /* 3. El logo de encima también se hace flexible */
@@ -65,24 +63,44 @@ body {
     transform: translate(-50%, -50%);
     z-index: 10;
   }
-  menu {
-    width: 700px;
+  /* 1. ESTILOS PARA EL CONTENEDOR 'menu' */
+menu {
+  /* Estas 3 líneas son las más importantes para la estructura: */
+  display: flex;
+  flex-direction: column; /* Apila los elementos en una columna vertical */
+  align-items: center;   /* Centra los elementos horizontalmente */
+  padding: 0;
+  gap: 25px; /* Añade un espacio de 10px entre cada elemento (botones y enlace) */
+
+  width: 300px;
+  margin: 50px auto 0;
+}
+
+/* 2. ESTILOS PARA LOS BOTONES DENTRO DEL MENÚ */
+menu button {
+    font-size: 35px;
+  width: 100%; /* Que los botones ocupen el 90% del ancho del menú */
+  padding: 5px;
+  border: none;
+  border-radius: 30px;
+  background-image: linear-gradient(to right, #a2790d, #f0d27e, #a2790d);
+  box-shadow: black 0 2px 15px;
+  color: white;
+  cursor: pointer;
+}
+.gif-en-boton {
+    /* --- AÑADE ESTAS DOS LÍNEAS PARA EL AJUSTE FINO --- */
+    position: relative; /* Permite mover el elemento desde su posición original */
+    top: -5px;          /* Mueve el GIF 2px hacia arriba. ¡Ajusta este valor! */
+  
+    /* --- Tus estilos existentes --- */
+    width: 50px;
     height: auto;
-    border: violet 2px solid;
   }
-  button {
-    background-image: linear-gradient(to right, #a2790d, #f0d27e, #a2790d);
-    border: none;
-    color: white;
-    padding: 10px 50px;
-    text-align: center;
-    text-decoration: none;
-    display: flex;
-    margin: 4px 2px;
-    cursor: pointer;
-    border-radius: 12px;
-  }
-  a {
-    color: white;
-    font-size: 16px;
-  }
+
+/* 3. ESTILOS PARA EL ENLACE 'a' DENTRO DEL MENÚ */
+menu a {
+  padding: 10px;
+  color: whitesmoke; /* Le damos un color diferente para distinguirlo */
+  font-size: 22px;
+}
