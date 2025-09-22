@@ -8,6 +8,33 @@ body {
   margin: 0;
 }
 
+body {
+    background-image: linear-gradient(to right, #D1C0A8, #FCF8F3, #D1C0A8);
+    background-color: black;
+    background-attachment: scroll;
+    position: relative;
+  }
+  
+  body::before {
+    filter: blur(5px);
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('/assets/soccer players/siluets/bsilueta1.png');
+    background-repeat: no-repeat;
+    
+    /* --- ¡CAMBIOS AQUÍ! --- */
+    margin-left: 10px;
+    background-position: center bottom; /* Centrada horizontalmente, pegada abajo */
+    background-size: 70%;             /* Al 50% de su tamaño original */
+    
+    opacity: 0.3; 
+    z-index: -1;
+  }
+
 .login-container {
   text-align: center;
   color: #333;
@@ -51,7 +78,7 @@ input {
   width: 150px;
   height: 150px;
   border-radius: 50%;
-  background: #fff url('https://cdn-icons-png.flaticon.com/512/1011/1011057.png') center/60% no-repeat;
+  background: #fff url('/assets/soccer players/siluets/ProfileSiluete.jpg') center/90% no-repeat;
   margin: 20px auto;
   box-shadow: 0 0 15px rgba(0,0,0,0.5);
 }
