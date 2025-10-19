@@ -1,43 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sign Up</title>
   <link rel="stylesheet" href="/css/signup.css">
 </head>
+
 <body>
   <div class="container">
     <div class="left">
-      <form>
+      <form action="/php/registro.php" method="POST" id="signup-form" enctype="multipart/form-data">
         <div class="form-group">
           <label for="name">Name:</label>
-          <input type="text" id="name">
+          <input type="text" id="name" name="name">
         </div>
 
         <div class="form-group">
           <label for="lastname1">1° Last Name:</label>
-          <input type="text" id="lastname1">
+          <input type="text" id="lastname1" name="lastname1">
         </div>
 
         <div class="form-group">
           <label for="lastname2">2° Last Name:</label>
-          <input type="text" id="lastname2">
+          <input type="text" id="lastname2" name="lastname2">
         </div>
 
         <div class="form-group">
           <label for="email">Email:</label>
-          <input type="email" id="email">
+          <input type="email" id="email" name="email">
         </div>
 
         <div class="form-group">
           <label for="birthday">Birthday:</label>
-          <input type="date" id="birthday">
+          <input type="date" id="birthday" name="birthday">
         </div>
 
         <div class="form-group">
           <label for="country">Country:</label>
-          <select id="country">
+          <select id="country" name="country">
             <option value="mx">🇲🇽 Mexico</option>
             <option value="us">🇺🇸 USA</option>
             <option value="es">🇪🇸 Spain</option>
@@ -46,33 +48,54 @@
 
         <div class="form-group">
           <label for="username">Username:</label>
-          <input type="text" id="username">
+          <input type="text" id="username" name="username">
         </div>
 
         <div class="form-group">
           <label for="password">Password:</label>
-          <input type="password" id="password">
+          <input type="password" id="password" name="password">
         </div>
 
         <div class="form-group">
           <label for="team">Lead Team:</label>
-          <select id="team">
+          <select id="team" name="team">
             <option value="mx">🇲🇽 Mexico</option>
             <option value="br">🇧🇷 Brazil</option>
             <option value="ar">🇦🇷 Argentina</option>
           </select>
         </div>
-
+        <input type="file" id="pfp-upload" name="profile_picture" accept="image/*" style="display: none;">
       </form>
     </div>
 
     <div class="right">
       <div class="photo-section">
-        <button class="upload-btn">UPLOAD PHOTO</button>
+
+
+        <button class="upload-btn" type="button" onclick="document.getElementById('pfp-upload').click()">
+          UPLOAD PHOTO
+        </button>
+
         <div class="photo-preview"></div>
       </div>
-      <button class="btn-continue" type="submit">CONTINUE</button>
+
+      <button class="btn-continue" type="submit" form="signup-form">CONTINUE</button>
     </div>
-  </div>
+
+    <script>
+      document.getElementById('pfp-upload').addEventListener('change', function (event) {
+        const file = event.target.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            const preview = document.querySelector('.photo-preview');
+            preview.style.backgroundImage = `url('${e.target.result}')`;
+            preview.textContent = '';
+          };
+          reader.readAsDataURL(file);
+        }
+      });
+    </script>
 </body>
+
 </html>

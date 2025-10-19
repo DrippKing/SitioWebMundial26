@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login</title>
   <link rel="stylesheet" href="/css/login.css">
 </head>
+
 <body>
   <div class="login-container">
-    <h2 class="welcome-text">We’ve been waiting for you!</h2>
+    <h2 class="welcome-text">We've been waiting for you!</h2>
 
     <div class="login-box">
       <form>
@@ -24,11 +26,19 @@
 
         <div class="player-img"></div>
 
-        <button type="submit" class="btn-continue">CONTINUE</button>
+        <button type="submit" class="btn-continue" id="login-index">CONTINUE</button>
 
-        <a href="#" class="signup-link">Sign Up</a>
+        <a href="./signup.html" class="signup-link">Sign Up</a>
       </form>
     </div>
   </div>
+  <script>
+    document.getElementById('login-index').addEventListener('click', function (event) {
+      event.preventDefault();
+
+      window.location.href = './index.html';
+    });
+  </script>
 </body>
+
 </html>
