@@ -52,7 +52,7 @@ body {
 .logout {
     grid-column: 2/3;
     grid-row: 1/2;
-    background-image: url("/assets/general icons/signout.png");
+    background-image: url("../assets/general icons/signout.png");
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;

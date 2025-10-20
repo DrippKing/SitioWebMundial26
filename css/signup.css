@@ -62,7 +62,7 @@ input, select {
   width: 60%;
   aspect-ratio: 1/1.25;
   border-radius: 50%;
-  background: #fff url("/assets/soccer players/siluets/ProfileSiluete.jpg") center/90% no-repeat;
+  background: #fff url("../assets/soccer players/siluets/ProfileSiluete.jpg") center/90% no-repeat;
   margin-top: 60px;
   margin-left: auto;
   box-shadow: 0 0 10px rgba(0,0,0,0.4);

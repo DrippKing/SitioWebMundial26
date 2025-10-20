@@ -67,7 +67,7 @@ $sql = "INSERT INTO usuarios (nombre, apellido1, apellido2, email, cumpleanos, p
 
     if ($stmt->execute()) {
         echo "<h1>¡Registro Exitoso!</h1>";
-        header("Location: ../html/login.html");
+        header("Location: ../html/games.html");
     } else {
         echo "<h1>🚨 Error de Registro:</h1><p>" . htmlspecialchars($error_msg) . "</p>";
     }

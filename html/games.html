@@ -1,21 +1,23 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Game Interface</title>
-    <link rel="stylesheet" href="/css/games.css">
+    <link rel="stylesheet" href="../css/games.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
+
 <body>
 
     <main class="main-container">
         <aside class="left-panel">
             <nav class="navigation">
                 <button>PROFILE</button>
-                <button>CHATS</button>
+                <button onclick="window.location.href='chats.html'">CHATS</button>
                 <button class="active">GLOBAL</button>
             </nav>
 
@@ -45,7 +47,7 @@
                     <span class="status now-playing">NOW PLAYING</span>
                     <span class="teams">⚽ VS ⚽</span>
                 </li>
-                 <li class="game-item">
+                <li class="game-item">
                     <span class="status on-time">ON TIME</span>
                     <span class="teams">⚽ VS ⚽</span>
                 </li>
@@ -63,9 +65,11 @@
             </header>
 
             <div class="matchup">
-                <img src="https://upload.wikimedia.org/wikipedia/en/thumb/f/f3/Mexico_national_football_team_seal.svg/1200px-Mexico_national_football_team_seal.svg.png" alt="Logo de México" class="team-logo">
+                <img src="https://upload.wikimedia.org/wikipedia/en/thumb/f/f3/Mexico_national_football_team_seal.svg/1200px-Mexico_national_football_team_seal.svg.png"
+                    alt="Logo de México" class="team-logo">
                 <span class="vs-text">VS</span>
-                <img src="https://upload.wikimedia.org/wikipedia/en/thumb/4/41/Italy_national_football_team_logo.svg/1200px-Italy_national_football_team_logo.svg.png" alt="Logo de Italia" class="team-logo">
+                <img src="https://upload.wikimedia.org/wikipedia/en/thumb/4/41/Italy_national_football_team_logo.svg/1200px-Italy_national_football_team_logo.svg.png"
+                    alt="Logo de Italia" class="team-logo">
             </div>
 
             <div class="match-info-card">
@@ -80,7 +84,8 @@
                         <span class="value">500</span>
                     </div>
                 </div>
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Estadio_de_Rayados_2018.jpg/1280px-Estadio_de_Rayados_2018.jpg" alt="Foto del Estadio" class="stadium-image">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Estadio_de_Rayados_2018.jpg/1280px-Estadio_de_Rayados_2018.jpg"
+                    alt="Foto del Estadio" class="stadium-image">
             </div>
 
             <button class="vote-button">VOTE NOW!</button>
@@ -88,4 +93,5 @@
     </main>
 
 </body>
+
 </html>
