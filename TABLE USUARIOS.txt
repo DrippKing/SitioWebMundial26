@@ -1,0 +1,13 @@
+CREATE TABLE usuarios (
+    id INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(100) NOT NULL,
+    apellido1 VARCHAR(100) NOT NULL,
+    apellido2 VARCHAR(100),
+    email VARCHAR(150) NOT NULL UNIQUE,
+    cumpleanos DATE,
+    pais VARCHAR(15),
+    usuario VARCHAR(50) NOT NULL UNIQUE,
+    contrasena VARCHAR(255) NOT NULL,
+    equipo VARCHAR(15),
+    foto_perfil VARCHAR(100) DEFAULT 'default.jpg' 
+);
