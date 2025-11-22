@@ -19,7 +19,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if (isset($_FILES['profile_picture']) && $_FILES['profile_picture']['error'] == 0) {
         
-        //ruta
         $archivo_temporal = $_FILES['profile_picture']['tmp_name'];
         $nombre_original = basename($_FILES['profile_picture']['name']);
         

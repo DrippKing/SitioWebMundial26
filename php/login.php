@@ -1,5 +1,5 @@
 <?php
-session_start(); 
+session_start();
 
 $host = "localhost";
 $usuario_db = "root";
@@ -37,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt->close();
             $conexion->close();
             
-            header("Location: ../html/games.html"); 
+            header("Location: ../html/chats.html"); 
             exit();
 
         } else {
