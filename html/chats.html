@@ -112,18 +112,22 @@
     <script src="../js/translations.js"></script>
     <script src="../js/languageSwitcher.js"></script>
     <script src="../js/chat.js"></script>
-    <script src="../js/videocall.js"></script>
+    
+    <!-- Script para verificar que el modal existe antes de cargar videocall.js -->
     <script>
-        // Crear instancia global de VideoCallManager después de que chat.js esté listo
-        let videoCallManager = null;
-        document.addEventListener('DOMContentLoaded', () => {
-            // Pequeño retraso para asegurar que chat.js esté completamente cargado
-            setTimeout(() => {
-                videoCallManager = new VideoCallManager();
-                console.log('✨ VideoCallManager inicializado');
-            }, 100);
-        });
+        console.log('🔍 [chats.html] Verificando elementos antes de cargar videocall.js...');
+        console.log('   - videoCallModal existe:', !!document.getElementById('videoCallModal'));
+        console.log('   - videoCallContact existe:', !!document.getElementById('videoCallContact'));
+        console.log('   - callStatus existe:', !!document.getElementById('callStatus'));
+        console.log('   - localVideo existe:', !!document.getElementById('localVideo'));
+        console.log('   - remoteVideo existe:', !!document.getElementById('remoteVideo'));
+        console.log('   - videoCallBtn existe:', !!document.getElementById('videoCallBtn'));
+        console.log('   - startCallBtn existe:', !!document.getElementById('startCallBtn'));
+        console.log('   - stopCallBtn existe:', !!document.getElementById('stopCallBtn'));
+        console.log('   - closeVideoCallBtn existe:', !!document.getElementById('closeVideoCallBtn'));
     </script>
+    
+    <script src="../js/videocall.js"></script>
 </body>
 
 </html>
