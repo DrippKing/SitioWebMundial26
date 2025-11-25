@@ -6,12 +6,7 @@
 
 session_start();
 
-$host = "localhost";
-$usuario_db = "root";
-$contrasena_db = "";
-$nombre_db = "poi_database";
-$port = 3307;
-
+require_once 'db_connection.php';
 echo "<h1>🧪 Test del Sistema de Chat</h1>";
 echo "<style>
     body { font-family: Arial, sans-serif; padding: 20px; background: #f5f5f5; }
@@ -24,13 +19,12 @@ echo "<style>
 // Test 1: Conexión a la base de datos
 echo "<div class='box'>";
 echo "<h2>1️⃣ Prueba de Conexión a la Base de Datos</h2>";
-$conexion = new mysqli($host, $usuario_db, $contrasena_db, $nombre_db, $port);
 
 if ($conexion->connect_error) {
     echo "<p class='error'>❌ Error: " . $conexion->connect_error . "</p>";
     die();
 } else {
-    echo "<p class='success'>✅ Conexión exitosa a la base de datos '{$nombre_db}' en puerto {$port}</p>";
+    echo "<p class='success'>✅ Conexión exitosa a la base de datos.</p>";
 }
 $conexion->set_charset("utf8");
 echo "</div>";

@@ -1,17 +1,12 @@
 <?php
+// Líneas para mostrar todos los errores de PHP (útil para depuración)
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 session_start();
 
-$host = "localhost";
-$usuario_db = "root";
-$contrasena_db = "";
-$nombre_db = "poi_database";
-$port = 3307;
-
-$conexion = new mysqli($host, $usuario_db, $contrasena_db, $nombre_db, $port);
-
-if ($conexion->connect_error) {
-    die("Error de conexión a la BD: " . $conexion->connect_error);
-}
+require_once 'db_connection.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
@@ -42,8 +37,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $update_stmt->execute();
             $update_stmt->close();
             
-            $conexion->close();
-            
             header("Location: ../html/chats.html"); 
             exit();
 
@@ -56,8 +49,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $stmt->close();
 
-    $conexion->close();
-    
     echo "<h1>❌ Error de Inicio de Sesión</h1><p>{$error}</p><p><a href='../html/login.html'>Volver a intentar</a></p>";
 }
 ?>

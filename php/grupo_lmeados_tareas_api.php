@@ -2,11 +2,8 @@
 header('Content-Type: application/json');
 
 try {
-    $conexion = new mysqli('localhost', 'root', '', 'poi_database', 3307);
-    if ($conexion->connect_error) {
-        throw new Exception("Error de conexión: " . $conexion->connect_error);
-    }
-    $conexion->set_charset('utf8');
+    require_once 'db_connection.php';
+    $conexion->set_charset('utf8mb4');
     
     $grupo_id = 1; // ID del grupo LMEADOS
     $miembros = [];

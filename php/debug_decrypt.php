@@ -1,6 +1,6 @@
 <?php
-$conexion = new mysqli('localhost', 'root', '', 'poi_database', 3307);
-
+require_once 'db_connection.php';
+$conexion->set_charset('utf8mb4');
 // Obtener un mensaje encriptado de ejemplo
 $result = $conexion->query("SELECT id, message_text, is_encrypted FROM mensajes WHERE is_encrypted = 1 ORDER BY id DESC LIMIT 1");
 

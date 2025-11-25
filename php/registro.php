@@ -1,17 +1,7 @@
 <?php
 session_start();
 
-$host = "localhost";
-$usuario_db = "root";
-$contrasena_db = "";
-$nombre_db = "poi_database";
-$port = 3307;
-
-$conexion = new mysqli($host, $usuario_db, $contrasena_db, $nombre_db, $port);
-
-if ($conexion->connect_error) {
-    die("Error de conexión a la BD: " . $conexion->connect_error);
-}
+require_once 'db_connection.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
@@ -80,7 +70,6 @@ $sql = "INSERT INTO usuarios (nombre, apellido1, apellido2, email, cumpleanos, p
         $update_stmt->close();
         
         $stmt->close();
-        $conexion->close();
         
         echo "<h1>¡Registro Exitoso!</h1>";
         header("Location: ../html/games.html");
@@ -92,5 +81,4 @@ $sql = "INSERT INTO usuarios (nombre, apellido1, apellido2, email, cumpleanos, p
     $stmt->close();
 }
 
-$conexion->close();
 ?>

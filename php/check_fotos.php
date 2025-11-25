@@ -1,5 +1,5 @@
 <?php
-$conexion = new mysqli('localhost', 'root', '', 'poi_database', 3307);
+require_once 'db_connection.php';
 $conexion->set_charset('utf8mb4');
 
 echo "=== FOTOS DE PERFIL EN BD ===\n\n";

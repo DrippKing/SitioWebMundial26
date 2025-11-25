@@ -2,13 +2,8 @@
 session_start();
 $_SESSION['user_id'] = 1; // Simular usuario logueado
 
-$host = "localhost";
-$usuario_db = "root";
-$contrasena_db = "";
-$nombre_db = "poi_database";
-$port = 3307;
-
-$conexion = new mysqli($host, $usuario_db, $contrasena_db, $nombre_db, $port);
+require_once 'db_connection.php';
+// El archivo db_connection.php ya se encarga de la conexión y de la gestión de errores.
 $conexion->set_charset("utf8");
 
 $contact_id = 6; // ID del contacto de prueba
