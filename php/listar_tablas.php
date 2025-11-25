@@ -1,5 +1,5 @@
 <?php
-$conexion = new mysqli('drippking.com', 'drippkin_Host', 'Drippking5545', 'Drippkin_poi_database', 3306);
+$conexion = new mysqli('localhost', 'root', '', 'poi_database', 3307);
 
 if ($conexion->connect_error) {
     die("Error de conexión: " . $conexion->connect_error);

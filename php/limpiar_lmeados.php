@@ -2,7 +2,7 @@
 header('Content-Type: application/json; charset=utf-8');
 
 try {
-    $conexion = new mysqli('drippking.com', 'drippkin_Host', 'Drippking5545', 'Drippkin_poi_database', 3306);
+    $conexion = new mysqli('localhost', 'root', '', 'poi_database', 3307);
     $conexion->set_charset('utf8mb4');
     
     // Los 3 miembros que deben estar: eljazmen (1), Alfo123 (4), LaaaTaaan (6)

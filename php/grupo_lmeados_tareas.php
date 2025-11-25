@@ -1,6 +1,6 @@
 <?php
 // Script para verificar tareas del grupo LMEADOS
-$conexion = new mysqli('drippking.com', 'drippkin_Host', 'Drippking5545', 'Drippkin_poi_database', 3306);
+$conexion = new mysqli('localhost', 'root', '', 'poi_database', 3307);
 $conexion->set_charset('utf8');
 
 // ID del grupo LMEADOS (ajustar si es necesario)

@@ -8,11 +8,11 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
-$host = "drippking.com";
-$usuario_db = "drippkin_Host";
-$contrasena_db = "Drippking5545";
-$nombre_db = "Drippkin_poi_database";
-$port = 3306;
+$host = "localhost";
+$usuario_db = "root";
+$contrasena_db = "";
+$nombre_db = "poi_database";
+$port = 3307;
 
 $conexion = new mysqli($host, $usuario_db, $contrasena_db, $nombre_db, $port);
 

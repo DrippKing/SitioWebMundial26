@@ -10,11 +10,11 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 // Conexión a base de datos
-$host = "drippking.com";
-$usuario_db = "drippkin_Host";
-$contrasena_db = "Drippking5545";
-$nombre_db = "Drippkin_poi_database";
-$port = 3306;
+$host = "localhost";
+$port = "3307";
+$dbname = "poi_database";
+$username = "root";
+$password = "";
 
 try {
     $conexion = new mysqli($host, $username, $password, $dbname, $port);

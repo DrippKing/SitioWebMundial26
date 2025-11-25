@@ -12,7 +12,7 @@ $info = [
 
 if (isset($_SESSION['user_id'])) {
     try {
-        $conexion = new mysqli('drippking.com', 'drippkin_Host', 'Drippking5545', 'Drippkin_poi_database', 3306);
+        $conexion = new mysqli('localhost', 'root', '', 'poi_database', 3307);
         $conexion->set_charset('utf8mb4');
         
         // Verificar si es miembro de LMEADOS (grupo ID 2)

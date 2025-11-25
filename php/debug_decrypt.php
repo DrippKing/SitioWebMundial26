@@ -1,5 +1,5 @@
 <?php
-$conexion = new mysqli('drippking.com', 'drippkin_Host', 'Drippking5545', 'Drippkin_poi_database', 3306);
+$conexion = new mysqli('localhost', 'root', '', 'poi_database', 3307);
 
 // Obtener un mensaje encriptado de ejemplo
 $result = $conexion->query("SELECT id, message_text, is_encrypted FROM mensajes WHERE is_encrypted = 1 ORDER BY id DESC LIMIT 1");

@@ -4,7 +4,7 @@ session_start();
 // Simular login como eljazmen (ID 1)
 $_SESSION['user_id'] = 1;
 
-$conexion = new mysqli('drippking.com', 'drippkin_Host', 'Drippking5545', 'Drippkin_poi_database', 3306);
+$conexion = new mysqli('localhost', 'root', '', 'poi_database', 3307);
 $conexion->set_charset('utf8mb4');
 
 echo "=== TEST DE TAREAS LMEADOS ===\n\n";
