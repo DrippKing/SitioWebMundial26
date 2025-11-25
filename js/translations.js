@@ -340,9 +340,34 @@ class LanguageManager {
         document.documentElement.dir = 'ltr';
         
         // Traducir todos los elementos con data-i18n
+        // IMPORTANTE: Solo traducir elementos sin hijos complejos
         document.querySelectorAll('[data-i18n]').forEach(element => {
             const key = element.getAttribute('data-i18n');
-            element.textContent = this.t(key);
+            const translation = this.t(key);
+            
+            // Si el elemento tiene hijos (especialmente span con id), no reemplazar textContent
+            // En su lugar, solo actualizar si no tiene elementos internos
+            const hasChildElements = element.children.length > 0;
+            
+            if (!hasChildElements) {
+                // Sin hijos - reemplazar textContent normalmente
+                element.textContent = translation;
+            } else {
+                // CON HIJOS (como <span id="videoCallContact">)
+                // Solo reemplazar el primer nodo de texto (el prefijo "Videollamada con ")
+                // Preservar los elementos internos
+                const firstTextNode = Array.from(element.childNodes).find(
+                    node => node.nodeType === Node.TEXT_NODE && node.textContent.trim()
+                );
+                
+                if (firstTextNode) {
+                    // Si hay un nodo de texto, actualizar solo ese
+                    firstTextNode.textContent = translation + ' ';
+                } else {
+                    // Si no hay texto al principio, agregar la traducción
+                    element.insertAdjacentHTML('afterbegin', translation + ' ');
+                }
+            }
         });
 
         // Traducir placeholders

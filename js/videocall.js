@@ -2,25 +2,28 @@
 
 class VideoCallManager {
     constructor() {
+        // NO acceder a elementos del DOM aquí - los elementos no están disponibles aún
         this.socket = null;
         this.localStream = null;
         this.peerConnection = null;
         this.roomId = null;
         this.remoteSocketId = null;
         this.serverIp = null;
-        this.userRegistered = false; // Flag para evitar re-registros
-        this.isCallInitiator = false; // Flag para saber si iniciamos la llamada
-        this.activeCallRoomId = null; // Track de la llamada activa
-        this.offerSent = false; // Flag para evitar enviar oferta múltiples veces
-        this.localVideo = document.getElementById('localVideo');
-        this.remoteVideo = document.getElementById('remoteVideo');
-        this.videoCallModal = document.getElementById('videoCallModal');
-        this.callStatus = document.getElementById('callStatus');
-        this.startCallBtn = document.getElementById('startCallBtn');
-        this.stopCallBtn = document.getElementById('stopCallBtn');
-        this.closeVideoCallBtn = document.getElementById('closeVideoCallBtn');
-        this.videoCallBtn = document.getElementById('videoCallBtn');
-        this.videoCallContact = document.getElementById('videoCallContact');
+        this.userRegistered = false;
+        this.isCallInitiator = false;
+        this.activeCallRoomId = null;
+        this.offerSent = false;
+
+        // Elementos del DOM - se asignarán en initializeElements
+        this.localVideo = null;
+        this.remoteVideo = null;
+        this.videoCallModal = null;
+        this.callStatus = null;
+        this.startCallBtn = null;
+        this.stopCallBtn = null;
+        this.closeVideoCallBtn = null;
+        this.videoCallBtn = null;
+        this.videoCallContact = null;
 
         // Configuración STUN
         this.rtcConfig = {
@@ -30,32 +33,95 @@ class VideoCallManager {
             ]
         };
 
-        // Método para intentar registrar el usuario (espera a que MY_USER_ID esté disponible)
-        this.attemptUserRegistration = () => {
-            // Evitar re-registros si ya se registró exitosamente
-            if (this.userRegistered) {
-                console.log('✅ Ya registrado, ignorando intento adicional');
-                return;
-            }
-            
-            if (typeof MY_USER_ID !== 'undefined' && MY_USER_ID !== null && MY_USER_ID !== 0) {
-                if (this.socket && this.socket.connected) {
-                    this.socket.emit('register-user', MY_USER_ID);
-                    this.userRegistered = true;
-                    console.log('🔐 Usuario registrado:', MY_USER_ID);
-                } else {
-                    console.log('⏳ Socket no conectado, reintentando en 500ms...');
-                    setTimeout(() => this.attemptUserRegistration(), 500);
-                }
+        // Inicializar cuando el DOM esté listo
+        this.initialize();
+    }
+
+    initialize() {
+        // Si el DOM ya está listo, inicializar inmediatamente
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', () => this.initializeElements());
+        } else {
+            this.initializeElements();
+        }
+    }
+
+    initializeElements() {
+        // Obtener referencias a los elementos del DOM
+        console.log('🔍 Buscando elementos del DOM en chats.html...');
+        console.log('   document.readyState:', document.readyState);
+        
+        this.localVideo = document.getElementById('localVideo');
+        this.remoteVideo = document.getElementById('remoteVideo');
+        this.videoCallModal = document.getElementById('videoCallModal');
+        this.callStatus = document.getElementById('callStatus');
+        this.startCallBtn = document.getElementById('startCallBtn');
+        this.stopCallBtn = document.getElementById('stopCallBtn');
+        this.closeVideoCallBtn = document.getElementById('closeVideoCallBtn');
+        this.videoCallBtn = document.getElementById('videoCallBtn');
+        this.videoCallContact = document.getElementById('videoCallContact');
+        
+        // Validar elementos críticos
+        const criticalElements = {
+            'videoCallModal': this.videoCallModal,
+            'callStatus': this.callStatus,
+            'videoCallBtn': this.videoCallBtn,
+            'localVideo': this.localVideo,
+            'remoteVideo': this.remoteVideo,
+            'videoCallContact': this.videoCallContact,
+            'startCallBtn': this.startCallBtn,
+            'stopCallBtn': this.stopCallBtn,
+            'closeVideoCallBtn': this.closeVideoCallBtn
+        };
+        
+        let allElementsFound = true;
+        const missingElements = [];
+        
+        for (const [name, element] of Object.entries(criticalElements)) {
+            if (!element) {
+                console.warn(`   ⚠️ ${name} NO ENCONTRADO`);
+                missingElements.push(name);
+                allElementsFound = false;
             } else {
-                // Reintentar cada 500ms hasta que MY_USER_ID esté disponible
-                console.log('⏳ MY_USER_ID no disponible (', MY_USER_ID, '), reintentando...');
+                console.log(`   ✅ ${name} encontrado`);
+            }
+        }
+        
+        if (allElementsFound) {
+            console.log('🎉 Todos los elementos del DOM encontrados');
+            this.setupEventListeners();
+            this.initializeSocket();
+            console.log('✅ VideoCallManager inicializado correctamente');
+        } else {
+            console.error('❌ FALLO: Elementos faltantes:', missingElements.join(', '));
+            console.error('ℹ️  Esto significa que chats.html no se cargó completamente o');
+            console.error('    el modal de videollamada no está en el HTML.');
+            console.error('📍 Total elementos en página:', document.querySelectorAll('*').length);
+        }
+    }
+
+    // Método para intentar registrar el usuario (espera a que MY_USER_ID esté disponible)
+    attemptUserRegistration() {
+        // Evitar re-registros si ya se registró exitosamente
+        if (this.userRegistered) {
+            console.log('✅ Ya registrado, ignorando intento adicional');
+            return;
+        }
+        
+        if (typeof MY_USER_ID !== 'undefined' && MY_USER_ID !== null && MY_USER_ID !== 0) {
+            if (this.socket && this.socket.connected) {
+                this.socket.emit('register-user', MY_USER_ID);
+                this.userRegistered = true;
+                console.log('🔐 Usuario registrado:', MY_USER_ID);
+            } else {
+                console.log('⏳ Socket no conectado, reintentando en 500ms...');
                 setTimeout(() => this.attemptUserRegistration(), 500);
             }
-        };
-
-        this.setupEventListeners();
-        this.initializeSocket();
+        } else {
+            // Reintentar cada 500ms hasta que MY_USER_ID esté disponible
+            console.log('⏳ MY_USER_ID no disponible (', MY_USER_ID, '), reintentando...');
+            setTimeout(() => this.attemptUserRegistration(), 500);
+        }
     }
 
     initializeSocket() {
@@ -250,34 +316,59 @@ class VideoCallManager {
     }
 
     setupEventListeners() {
-        this.startCallBtn.addEventListener('click', () => this.startCall());
-        this.stopCallBtn.addEventListener('click', () => this.stopCall());
-        this.closeVideoCallBtn.addEventListener('click', () => this.closeModal());
-        this.videoCallBtn.addEventListener('click', () => {
-            console.log('🔘 Click en botón de videollamada');
-            this.openVideoCallModal();
-        });
+        // Validar que los elementos existan antes de agregar listeners
+        if (this.startCallBtn) {
+            this.startCallBtn.addEventListener('click', () => this.startCall());
+        }
+        if (this.stopCallBtn) {
+            this.stopCallBtn.addEventListener('click', () => this.stopCall());
+        }
+        if (this.closeVideoCallBtn) {
+            this.closeVideoCallBtn.addEventListener('click', () => this.closeModal());
+        }
+        if (this.videoCallBtn) {
+            this.videoCallBtn.addEventListener('click', () => {
+                console.log('🔘 Click en botón de videollamada');
+                this.openVideoCallModal();
+            });
+        } else {
+            console.warn('⚠️ videoCallBtn no encontrado');
+        }
     }
 
     openVideoCallModal() {
         console.log('📹 openVideoCallModal llamado');
-        console.log('currentContactId:', currentContactId);
-        console.log('contactsCache:', contactsCache);
         
+        // Validar precondiciones
         if (!currentContactId) {
             alert('Por favor selecciona un contacto primero');
             return;
         }
         
+        // Validar que todos los elementos existan
+        if (!this.videoCallContact || !this.videoCallModal || !this.callStatus || !this.startCallBtn || !this.stopCallBtn) {
+            console.error('❌ Elementos del modal no están inicializados');
+            console.error('videoCallContact:', !!this.videoCallContact);
+            console.error('videoCallModal:', !!this.videoCallModal);
+            console.error('callStatus:', !!this.callStatus);
+            console.error('startCallBtn:', !!this.startCallBtn);
+            console.error('stopCallBtn:', !!this.stopCallBtn);
+            alert('Error: El modal no se inicializó correctamente. Recarga la página.');
+            return;
+        }
+        
+        // Obtener nombre del contacto
         const contactName = contactsCache[currentContactId]?.username || 'Usuario';
+        console.log('Abriendo modal para:', contactName);
+        
+        // Actualizar contenido del modal
         this.videoCallContact.textContent = contactName;
-        
-        // Mostrar el modal
-        this.videoCallModal.style.display = 'flex';
-        
         this.callStatus.textContent = 'Preparando videollamada...';
         this.startCallBtn.style.display = 'block';
         this.stopCallBtn.style.display = 'none';
+        
+        // Mostrar el modal
+        this.videoCallModal.style.display = 'flex';
         
         console.log('✅ Modal abierto para:', contactName);
     }
@@ -370,6 +461,12 @@ class VideoCallManager {
         // Evitar procesar la misma llamada dos veces
         if (this.activeCallRoomId === data.roomId) {
             console.log('⚠️ Esta llamada ya está siendo procesada');
+            return;
+        }
+        
+        // Validar elementos antes de usarlos
+        if (!this.videoCallContact || !this.videoCallModal || !this.callStatus) {
+            console.error('❌ Elementos del modal no encontrados en acceptIncomingCall');
             return;
         }
         
@@ -657,4 +754,14 @@ class VideoCallManager {
             console.error('Error al detener llamada:', error);
         }
     }
+}
+
+// Crear instancia global automáticamente cuando el documento esté listo
+let videoCallManager = null;
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+        videoCallManager = new VideoCallManager();
+    });
+} else {
+    videoCallManager = new VideoCallManager();
 }
