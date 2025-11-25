@@ -5,57 +5,62 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Dashboard</title>
     <link rel="stylesheet" href="../css/profile.css">
+    <link rel="stylesheet" href="../css/language.css">
 </head>
 <body>
+    <div class="language-switcher-top" id="languageSwitcher"></div>
     <div class="container">
         <div class="nav">
             <div class="profile">
-                <div class="avatar"></div>
+                <div class="avatar" id="user-avatar"></div>
                 <div class="user-info">
-                    <h2>username <span class="settings">⚙️</span></h2>
+                    <h2 id="username">username <span class="settings">⚙️</span></h2>
                     <p><img src="https://flagcdn.com/w20/mx.png" alt="MX"> lead team</p>
                 </div>
             </div>
             <div class="menu">
-                <button>GLOBAL</button>
-                <button>CHATS</button>
-                <button>FULL GAMES</button>
+                <button onclick="window.location.href='ranking.html'" data-i18n="ranking.title">GLOBAL</button>
+                <button onclick="window.location.href='chats.html'" data-i18n="nav.chats">CHATS</button>
+                <button onclick="window.location.href='friends.html'" data-i18n="nav.friends">FRIENDS</button>
+                <button onclick="window.location.href='games.html'" data-i18n="nav.games">FULL GAMES</button>
             </div>
             <div class="logoutMenu">
-                <span class="already">Already going? :(</span>
-                <button class="logout"></button>
+                <span class="already" data-i18n="profile.changePassword">Already going? :(</span>
+                <button class="logout" onclick="window.location.href='../php/logout.php'" data-i18n="nav.logout"></button>
+                <button class="admin-btn" id="admin-btn" onclick="window.location.href='admin.html'" style="display:none;" data-i18n="nav.admin">⚙️ ADMIN</button>
             </div>
         </div>
         <!-- Estadísticas -->
         <div class="stats">
-            <table>
-                <tr><td>Total Events:</td><td>20</td></tr>
-                <tr><td>Score:</td><td>1500</td></tr>
-                <tr><td>Precision:</td><td>75%</td></tr>
+            <table id="stats-table">
+                <tr><td data-i18n="games.leaderboard">Total Events:</td><td id="total-predicciones">0</td></tr>
+                <tr><td data-i18n="ranking.points">Score:</td><td id="puntos-totales">0</td></tr>
+                <tr><td data-i18n="general.offline">Precision:</td><td id="precision">0%</td></tr>
             </table>
         </div>
+
+        <!-- Medallas -->
+        <div class="medallas-container">
+            <h3 data-i18n="general.offline">🏆 MEDALLAS</h3>
+            <div id="medallas-list" class="medallas-list">
+                <div class="loading" data-i18n="general.loading">Cargando medallas...</div>
+            </div>
+        </div>
+
         <div class="tables">
             <div class="history">
-                <h3>HISTORY</h3>
-                <div class="history-items">
-                    <div class="item"><span>👑</span> 500 <span class="vs">🏁 VS 🏁</span></div>
-                    <div class="item"><span>👑</span> 500 <span class="vs">🏁 VS 🏁</span></div>
-                    <div class="item"><span>👑</span> 500 <span class="vs">🏁 VS 🏁</span></div>
-                    <div class="item"><span>👑</span> 500 <span class="vs">🏁 VS 🏁</span></div>
-                    <div class="item"><span>👑</span> 500 <span class="vs">🏁 VS 🏁</span></div>
+                <h3 data-i18n="profile.edit">HISTORY - TOP PREDICTIONS</h3>
+                <div class="history-items" id="history-items">
+                    <div class="item loading" data-i18n="general.loading">Loading...</div>
                 </div>
             </div>
     
             <!-- Información de juegos -->
             <div class="games">
-                <h3>VOTED | GAME INFORMATION</h3>
-                <div class="row"><span>✔</span><span class="status green">NOW PLAYING</span><span class="vs">🏁 VS 🏁</span></div>
-                <div class="row"><span>✔</span><span class="status red">CONCLUDED</span><span class="vs">🏁 VS 🏁</span></div>
-                <div class="row"><span>…</span><span class="status yellow">ON TIME</span><span class="vs">🏁 VS 🏁</span></div>
-                <div class="row"><span>…</span><span class="status yellow">ON TIME</span><span class="vs">🏁 VS 🏁</span></div>
-                <div class="row"><span>✘</span><span class="status green">NOW PLAYING</span><span class="vs">🏁 VS 🏁</span></div>
-                <div class="row"><span>…</span><span class="status yellow">ON TIME</span><span class="vs">🏁 VS 🏁</span></div>
-                <div class="row"><span>✘</span><span class="status red">CONCLUDED</span><span class="vs">🏁 VS 🏁</span></div>
+                <h3 data-i18n="games.predictions">MY PREDICTIONS</h3>
+                <div id="predicciones-list">
+                    <div class="row loading" data-i18n="general.loading">Loading predictions...</div>
+                </div>
             </div>
     
         </div>
@@ -63,5 +68,9 @@
 
         <!-- Historia -->
     </div>
+    
+    <script src="../js/profile.js"></script>
+    <script src="../js/translations.js"></script>
+    <script src="../js/languageSwitcher.js"></script>
 </body>
 </html>

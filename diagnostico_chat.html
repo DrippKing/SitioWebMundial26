@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Diagnóstico Chat</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test {
+            background: white;
+            padding: 20px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border-left: 4px solid #4CAF50;
+        }
+        .error {
+            border-left-color: #f44336;
+        }
+        pre {
+            background: #263238;
+            color: #aed581;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔍 Diagnóstico del Chat</h1>
+    
+    <div id="results"></div>
+
+    <script>
+        const results = document.getElementById('results');
+        
+        async function testAPI() {
+            results.innerHTML = '<h2>Probando API...</h2>';
+            
+            // Test 1: Obtener contactos
+            try {
+                const res1 = await fetch('../php/msg.php?action=get_contacts');
+                const data1 = await res1.json();
+                results.innerHTML += `
+                    <div class="test">
+                        <h3>✅ Test 1: Contactos</h3>
+                        <p>Status: ${res1.status}</p>
+                        <pre>${JSON.stringify(data1, null, 2)}</pre>
+                    </div>
+                `;
+            } catch (err) {
+                results.innerHTML += `
+                    <div class="test error">
+                        <h3>❌ Test 1: Error en Contactos</h3>
+                        <p>${err.message}</p>
+                    </div>
+                `;
+            }
+            
+            // Test 2: Obtener mensajes
+            try {
+                const res2 = await fetch('../php/msg.php?action=get_messages&contact_id=2');
+                const data2 = await res2.json();
+                results.innerHTML += `
+                    <div class="test">
+                        <h3>✅ Test 2: Mensajes (contacto 2)</h3>
+                        <p>Status: ${res2.status}</p>
+                        <p>Total mensajes: ${data2.length}</p>
+                        <pre>${JSON.stringify(data2, null, 2)}</pre>
+                    </div>
+                `;
+            } catch (err) {
+                results.innerHTML += `
+                    <div class="test error">
+                        <h3>❌ Test 2: Error en Mensajes</h3>
+                        <p>${err.message}</p>
+                    </div>
+                `;
+            }
+            
+            // Test 3: Obtener grupos
+            try {
+                const res3 = await fetch('../php/msg.php?action=get_groups');
+                const data3 = await res3.json();
+                results.innerHTML += `
+                    <div class="test">
+                        <h3>✅ Test 3: Grupos</h3>
+                        <p>Status: ${res3.status}</p>
+                        <pre>${JSON.stringify(data3, null, 2)}</pre>
+                    </div>
+                `;
+            } catch (err) {
+                results.innerHTML += `
+                    <div class="test error">
+                        <h3>❌ Test 3: Error en Grupos</h3>
+                        <p>${err.message}</p>
+                    </div>
+                `;
+            }
+            
+            // Test 4: Verificar sesión
+            try {
+                const res4 = await fetch('../php/msg.php?action=get_contacts');
+                const headers = {};
+                res4.headers.forEach((value, key) => {
+                    headers[key] = value;
+                });
+                results.innerHTML += `
+                    <div class="test">
+                        <h3>ℹ️ Test 4: Headers de Respuesta</h3>
+                        <pre>${JSON.stringify(headers, null, 2)}</pre>
+                    </div>
+                `;
+            } catch (err) {
+                results.innerHTML += `
+                    <div class="test error">
+                        <h3>❌ Test 4: Error</h3>
+                        <p>${err.message}</p>
+                    </div>
+                `;
+            }
+        }
+        
+        testAPI();
+    </script>
+</body>
+</html>

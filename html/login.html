@@ -6,32 +6,37 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login</title>
   <link rel="stylesheet" href="../css/login.css">
+  <link rel="stylesheet" href="../css/language.css">
 </head>
 
 <body>
+  <div class="language-switcher-top" id="languageSwitcher"></div>
   <div class="login-container">
-    <h2 class="welcome-text">We've been waiting for you!</h2>
+    <h2 class="welcome-text" data-i18n="login.title">We've been waiting for you!</h2>
 
     <div class="login-box">
       <form action="../php/login.php" method="POST">
         <div class="form-group">
-          <label for="username">Username:</label>
+          <label for="username" data-i18n="login.username">Username:</label>
           <input type="text" id="username" name="username" required>
         </div>
 
         <div class="form-group">
-          <label for="password">Password:</label>
+          <label for="password" data-i18n="login.password">Password:</label>
           <input type="password" id="password" name="password" required>
         </div>
 
         <div class="player-img"></div>
 
-        <button type="submit" class="btn-continue" id="login-index">CONTINUE</button>
+        <button type="submit" class="btn-continue" id="login-index" data-i18n="login.button">CONTINUE</button>
 
-        <a href="./signup.html" class="signup-link">Sign Up</a>
+        <a href="./signup.html" class="signup-link" data-i18n="signup.button">Sign Up</a>
       </form>
     </div>
   </div>
+
+  <script src="../js/translations.js"></script>
+  <script src="../js/languageSwitcher.js"></script>
 </body>
 
 </html>

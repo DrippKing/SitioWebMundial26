@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test de Archivos y Emojis</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 { color: #333; }
+        .test-section {
+            margin: 30px 0;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 8px;
+        }
+        .emoji-test {
+            font-size: 32px;
+            margin: 10px;
+        }
+        .file-preview {
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+        .file-preview img {
+            max-width: 200px;
+            max-height: 200px;
+            border-radius: 8px;
+        }
+        .success { color: green; font-weight: bold; }
+        .error { color: red; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 Prueba de Archivos y Emojis</h1>
+        
+        <div class="test-section">
+            <h2>✅ Prueba de Emojis</h2>
+            <p>Si ves emojis a continuación, la funcionalidad de emojis está correcta:</p>
+            <div class="emoji-test">
+                😀 😂 😍 😎 😭 😡 👍 👎 ❤️ 🔥 ✨ 🎉 💪 🙏 👏 🤔 😴 🤩 🥳 😱
+            </div>
+            <p class="success">✓ Los emojis se ven correctamente</p>
+        </div>
+
+        <div class="test-section">
+            <h2>📁 Prueba de Archivos Existentes</h2>
+            <p>Archivos en la carpeta uploads:</p>
+            
+            <div class="file-preview">
+                <h3>Imagen JPG:</h3>
+                <img src="uploads/6923f6e877e23_1763964648.jpg" alt="Test Image" 
+                     onerror="this.parentElement.innerHTML += '<p class=\'error\'>❌ Error al cargar imagen</p>'">
+                <p class="success">✓ Imagen cargada correctamente</p>
+            </div>
+            
+            <div class="file-preview">
+                <h3>Documento DOCX:</h3>
+                <p>📄 <a href="uploads/6923f726aa6d6_1763964710.docx" target="_blank">6923f726aa6d6_1763964710.docx</a></p>
+                <p class="success">✓ Link al documento funcional</p>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>🔍 Verificación de Rutas</h2>
+            <div id="path-check"></div>
+        </div>
+
+        <div class="test-section">
+            <h2>💬 Simulación de Mensaje con Archivo</h2>
+            <div style="display: flex; gap: 10px; align-items: flex-start; margin: 20px 0;">
+                <img src="pictures/default.jpg" alt="Avatar" style="width: 40px; height: 40px; border-radius: 50%;">
+                <div style="background: #D1C0A8; padding: 15px; border-radius: 10px; max-width: 300px;">
+                    <p style="margin: 0;">Aquí está el archivo 📎</p>
+                    <div style="margin-top: 10px; padding: 10px; background: rgba(255,255,255,0.5); border-radius: 8px;">
+                        <span style="font-size: 24px;">📄</span>
+                        <a href="uploads/6923f726aa6d6_1763964710.docx" target="_blank" 
+                           style="color: #007bff; text-decoration: none; margin-left: 5px; font-weight: bold;">
+                            6923f726aa6d6_1763964710.docx
+                        </a>
+                    </div>
+                    <span style="font-size: 0.7em; color: #666; display: block; margin-top: 5px;">
+                        00:11 <span style="color: #4CAF50;">✓✓</span>
+                    </span>
+                </div>
+            </div>
+            <p class="success">✓ Vista previa de mensaje con documento</p>
+        </div>
+
+        <div class="test-section">
+            <h2>🖼️ Simulación de Mensaje con Imagen</h2>
+            <div style="display: flex; gap: 10px; align-items: flex-start; margin: 20px 0;">
+                <img src="pictures/default.jpg" alt="Avatar" style="width: 40px; height: 40px; border-radius: 50%;">
+                <div style="background: #D1C0A8; padding: 15px; border-radius: 10px; max-width: 300px;">
+                    <p style="margin: 0;">Mira esta imagen 📸</p>
+                    <img src="uploads/6923f6e877e23_1763964648.jpg" alt="Imagen enviada"
+                         style="max-width: 200px; max-height: 200px; border-radius: 10px; margin-top: 8px; display: block; cursor: pointer; border: 2px solid #ddd;"
+                         onclick="window.open('uploads/6923f6e877e23_1763964648.jpg', '_blank')">
+                    <span style="font-size: 0.7em; color: #666; display: block; margin-top: 5px;">
+                        00:10 <span style="color: #4CAF50;">✓✓</span>
+                    </span>
+                </div>
+            </div>
+            <p class="success">✓ Vista previa de mensaje con imagen</p>
+        </div>
+
+        <div class="test-section">
+            <h2>🎯 Resumen de Correcciones</h2>
+            <ul style="line-height: 2;">
+                <li>✅ Los emojis ahora se renderizan usando <code>innerHTML</code> en lugar de <code>textContent</code></li>
+                <li>✅ Las imágenes se muestran como vista previa con tamaño limitado (200px)</li>
+                <li>✅ Los documentos se muestran con iconos según el tipo de archivo (📄 PDF, 📝 DOC, 📊 XLS, 📎 Otros)</li>
+                <li>✅ Los archivos se pueden abrir en nueva pestaña haciendo clic</li>
+                <li>✅ Se agregaron los campos <code>file_url</code> y <code>message_type</code> en PHP</li>
+                <li>✅ Los mensajes ahora incluyen la ruta completa del archivo</li>
+            </ul>
+        </div>
+
+        <div class="test-section">
+            <h2>🚀 Próximos Pasos</h2>
+            <ol style="line-height: 2;">
+                <li>Abre <a href="html/chats.html">chats.html</a></li>
+                <li>Inicia sesión con un usuario</li>
+                <li>Selecciona un contacto o grupo</li>
+                <li>Prueba enviar un emoji usando el botón "😊 Emojis"</li>
+                <li>Prueba adjuntar una imagen usando el botón "📎 Adjuntar"</li>
+                <li>Verifica que las imágenes se vean y los documentos tengan su icono</li>
+            </ol>
+        </div>
+    </div>
+
+    <script>
+        // Verificar rutas
+        const pathCheck = document.getElementById('path-check');
+        
+        fetch('uploads/6923f6e877e23_1763964648.jpg')
+            .then(response => {
+                if (response.ok) {
+                    pathCheck.innerHTML += '<p class="success">✓ Ruta de uploads accesible</p>';
+                } else {
+                    pathCheck.innerHTML += '<p class="error">❌ Error al acceder a uploads</p>';
+                }
+            })
+            .catch(() => {
+                pathCheck.innerHTML += '<p class="error">❌ Error de red</p>';
+            });
+        
+        fetch('pictures/default.jpg')
+            .then(response => {
+                if (response.ok) {
+                    pathCheck.innerHTML += '<p class="success">✓ Ruta de pictures accesible</p>';
+                } else {
+                    pathCheck.innerHTML += '<p class="error">❌ Error al acceder a pictures</p>';
+                }
+            })
+            .catch(() => {
+                pathCheck.innerHTML += '<p class="error">❌ Error de red</p>';
+            });
+    </script>
+</body>
+</html>

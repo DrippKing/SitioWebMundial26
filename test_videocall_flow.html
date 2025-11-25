@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Videocall Flow</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #1a1a1a;
+            color: #fff;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .client {
+            background: #2a2a2a;
+            border: 1px solid #444;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        h2 { color: #667eea; }
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            background: #333;
+            border-left: 4px solid #667eea;
+        }
+        .status.success { border-left-color: #4CAF50; }
+        .status.error { border-left-color: #f44336; }
+        .status.info { border-left-color: #2196F3; }
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover { background: #5568d3; }
+        button.danger { background: #f44336; }
+        button.danger:hover { background: #da190b; }
+        #logs {
+            background: #111;
+            border: 1px solid #444;
+            padding: 15px;
+            height: 300px;
+            overflow-y: auto;
+            font-size: 12px;
+            font-family: 'Courier New', monospace;
+            margin-top: 10px;
+        }
+        .log-entry {
+            padding: 5px;
+            border-bottom: 1px solid #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎥 Test Videocall Flow - Socket.io Communication</h1>
+    
+    <div class="container">
+        <!-- Cliente 1 (Usuario 1) -->
+        <div class="client">
+            <h2>👤 Usuario 1 (ID: 1)</h2>
+            <div class="status info">Esperando conexión...</div>
+            <button onclick="connectUser1()">Conectar Usuario 1</button>
+            <button onclick="user1CallUser4()">Llamar a Usuario 4</button>
+            <button onclick="user1AcceptCall()">Aceptar Llamada</button>
+            <button class="danger" onclick="user1RejectCall()">Rechazar Llamada</button>
+            <button class="danger" onclick="user1Disconnect()">Desconectar</button>
+            <div id="user1Status" class="status info">Socket: Desconectado</div>
+        </div>
+
+        <!-- Cliente 4 (Usuario 4) -->
+        <div class="client">
+            <h2>👤 Usuario 4 (ID: 4)</h2>
+            <div class="status info">Esperando conexión...</div>
+            <button onclick="connectUser4()">Conectar Usuario 4</button>
+            <button onclick="user4CallUser1()">Llamar a Usuario 1</button>
+            <button onclick="user4AcceptCall()">Aceptar Llamada</button>
+            <button class="danger" onclick="user4RejectCall()">Rechazar Llamada</button>
+            <button class="danger" onclick="user4Disconnect()">Desconectar</button>
+            <div id="user4Status" class="status info">Socket: Desconectado</div>
+        </div>
+    </div>
+
+    <div style="margin-top: 30px;">
+        <h3>📋 Logs de Comunicación</h3>
+        <button onclick="clearLogs()">Limpiar Logs</button>
+        <div id="logs"></div>
+    </div>
+
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <script>
+        // Detectar si es local o remoto
+        const isRemote = !window.location.hostname.includes('localhost') && 
+                        !window.location.hostname.includes('127.0.0.1');
+        const socketUrl = isRemote ? 'http://25.7.206.194:3001' : 'http://localhost:3001';
+
+        let socket1 = null;
+        let socket4 = null;
+        let user1Id = 1;
+        let user4Id = 4;
+
+        function log(message, type = 'info') {
+            const logsDiv = document.getElementById('logs');
+            const entry = document.createElement('div');
+            entry.className = 'log-entry';
+            const timestamp = new Date().toLocaleTimeString();
+            entry.innerHTML = `<span style="color: #999;">[${timestamp}]</span> <span style="color: ${type === 'error' ? '#f44336' : type === 'success' ? '#4CAF50' : '#2196F3'}">${message}</span>`;
+            logsDiv.appendChild(entry);
+            logsDiv.scrollTop = logsDiv.scrollHeight;
+        }
+
+        function clearLogs() {
+            document.getElementById('logs').innerHTML = '';
+        }
+
+        function connectUser1() {
+            if (socket1) return;
+            log('🔌 Conectando Usuario 1...', 'info');
+            socket1 = io(socketUrl);
+
+            socket1.on('connect', () => {
+                log('✅ Usuario 1 conectado', 'success');
+                document.getElementById('user1Status').textContent = `Socket: ${socket1.id}`;
+                socket1.emit('register-user', user1Id);
+            });
+
+            socket1.on('registration-success', (data) => {
+                log(`🔐 Usuario 1 registrado: ${JSON.stringify(data)}`, 'success');
+            });
+
+            socket1.on('video-call-request', (data) => {
+                log(`📞 Usuario 1 recibió solicitud de llamada de usuario ${data.from}`, 'info');
+            });
+
+            socket1.on('video-call-accepted', (data) => {
+                log(`✅ Usuario 1: Llamada aceptada por ${data.from}`, 'success');
+            });
+
+            socket1.on('video-call-rejected', (data) => {
+                log(`❌ Usuario 1: Llamada rechazada por ${data.from}`, 'error');
+            });
+
+            socket1.on('disconnect', () => {
+                log('🔴 Usuario 1 desconectado', 'error');
+                document.getElementById('user1Status').textContent = 'Socket: Desconectado';
+            });
+        }
+
+        function connectUser4() {
+            if (socket4) return;
+            log('🔌 Conectando Usuario 4...', 'info');
+            socket4 = io(socketUrl);
+
+            socket4.on('connect', () => {
+                log('✅ Usuario 4 conectado', 'success');
+                document.getElementById('user4Status').textContent = `Socket: ${socket4.id}`;
+                socket4.emit('register-user', user4Id);
+            });
+
+            socket4.on('registration-success', (data) => {
+                log(`🔐 Usuario 4 registrado: ${JSON.stringify(data)}`, 'success');
+            });
+
+            socket4.on('video-call-request', (data) => {
+                log(`📞 Usuario 4 recibió solicitud de llamada de usuario ${data.from}`, 'info');
+            });
+
+            socket4.on('video-call-accepted', (data) => {
+                log(`✅ Usuario 4: Llamada aceptada por ${data.from}`, 'success');
+            });
+
+            socket4.on('video-call-rejected', (data) => {
+                log(`❌ Usuario 4: Llamada rechazada por ${data.from}`, 'error');
+            });
+
+            socket4.on('disconnect', () => {
+                log('🔴 Usuario 4 desconectado', 'error');
+                document.getElementById('user4Status').textContent = 'Socket: Desconectado';
+            });
+        }
+
+        function user1CallUser4() {
+            if (!socket1 || !socket1.connected) {
+                log('⚠️ Usuario 1 no está conectado', 'error');
+                return;
+            }
+            log('📞 Usuario 1 llamando a Usuario 4...', 'info');
+            socket1.emit('video-call-request', {
+                from: user1Id,
+                to: user4Id,
+                roomId: `room-${user1Id}-${user4Id}`
+            });
+        }
+
+        function user4CallUser1() {
+            if (!socket4 || !socket4.connected) {
+                log('⚠️ Usuario 4 no está conectado', 'error');
+                return;
+            }
+            log('📞 Usuario 4 llamando a Usuario 1...', 'info');
+            socket4.emit('video-call-request', {
+                from: user4Id,
+                to: user1Id,
+                roomId: `room-${user4Id}-${user1Id}`
+            });
+        }
+
+        function user1AcceptCall() {
+            if (!socket1 || !socket1.connected) {
+                log('⚠️ Usuario 1 no está conectado', 'error');
+                return;
+            }
+            log('✅ Usuario 1 aceptando llamada...', 'info');
+            socket1.emit('video-call-accepted', {
+                to: user4Id,
+                roomId: 'room-1-4'
+            });
+        }
+
+        function user1RejectCall() {
+            if (!socket1 || !socket1.connected) {
+                log('⚠️ Usuario 1 no está conectado', 'error');
+                return;
+            }
+            log('❌ Usuario 1 rechazando llamada...', 'info');
+            socket1.emit('video-call-rejected', {
+                to: user4Id,
+                roomId: 'room-1-4'
+            });
+        }
+
+        function user4AcceptCall() {
+            if (!socket4 || !socket4.connected) {
+                log('⚠️ Usuario 4 no está conectado', 'error');
+                return;
+            }
+            log('✅ Usuario 4 aceptando llamada...', 'info');
+            socket4.emit('video-call-accepted', {
+                to: user1Id,
+                roomId: 'room-4-1'
+            });
+        }
+
+        function user4RejectCall() {
+            if (!socket4 || !socket4.connected) {
+                log('⚠️ Usuario 4 no está conectado', 'error');
+                return;
+            }
+            log('❌ Usuario 4 rechazando llamada...', 'info');
+            socket4.emit('video-call-rejected', {
+                to: user1Id,
+                roomId: 'room-4-1'
+            });
+        }
+
+        function user1Disconnect() {
+            if (socket1) {
+                socket1.disconnect();
+                socket1 = null;
+            }
+        }
+
+        function user4Disconnect() {
+            if (socket4) {
+                socket4.disconnect();
+                socket4 = null;
+            }
+        }
+
+        // Log inicial
+        log(`🌐 Conectando a: ${socketUrl}`, 'info');
+    </script>
+</body>
+</html>

@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagnóstico de Cámara y Micrófono</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        h1 {
+            color: #667eea;
+            text-align: center;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: #f9f9f9;
+        }
+        .test-title {
+            font-weight: bold;
+            color: #333;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        .result {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .warning {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+        .info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            background: #667eea;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        button:hover {
+            background: #764ba2;
+        }
+        video {
+            max-width: 100%;
+            max-height: 300px;
+            margin: 10px 0;
+            border: 2px solid #667eea;
+            border-radius: 5px;
+            display: none;
+        }
+        .video-container {
+            text-align: center;
+        }
+        .soluciones {
+            margin-top: 30px;
+            padding: 20px;
+            background: #e7f3ff;
+            border-left: 4px solid #2196F3;
+            border-radius: 5px;
+        }
+        .solucion {
+            margin: 15px 0;
+            padding: 15px;
+            background: white;
+            border-radius: 5px;
+        }
+        .solucion-titulo {
+            font-weight: bold;
+            color: #2196F3;
+            margin-bottom: 10px;
+        }
+        ol, ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        li {
+            margin: 8px 0;
+        }
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎥 Diagnóstico de Cámara y Micrófono</h1>
+        <p style="text-align: center; color: #666;">
+            Esta herramienta te ayuda a identificar y resolver problemas con tu cámara y micrófono
+        </p>
+
+        <!-- Test 1: Navegador -->
+        <div class="test-section">
+            <div class="test-title">1️⃣ Verificar Compatibilidad del Navegador</div>
+            <button onclick="verificarNavegador()">Verificar Navegador</button>
+            <div id="result-navegador"></div>
+        </div>
+
+        <!-- Test 2: Protocolo HTTPS -->
+        <div class="test-section">
+            <div class="test-title">2️⃣ Verificar Conexión Segura (HTTPS)</div>
+            <button onclick="verificarHTTPS()">Verificar HTTPS</button>
+            <div id="result-https"></div>
+        </div>
+
+        <!-- Test 3: Permisos -->
+        <div class="test-section">
+            <div class="test-title">3️⃣ Verificar Permisos de Cámara y Micrófono</div>
+            <button onclick="verificarPermisos()">Solicitar Permisos</button>
+            <div id="result-permisos"></div>
+        </div>
+
+        <!-- Test 4: Dispositivos -->
+        <div class="test-section">
+            <div class="test-title">4️⃣ Listar Dispositivos Disponibles</div>
+            <button onclick="listarDispositivos()">Listar Dispositivos</button>
+            <div id="result-dispositivos"></div>
+        </div>
+
+        <!-- Test 5: Prueba de Cámara -->
+        <div class="test-section">
+            <div class="test-title">5️⃣ Prueba de Cámara en Vivo</div>
+            <button onclick="probarCamara()">Encender Cámara</button>
+            <button onclick="apagarCamara()" style="background: #f44336;">Apagar Cámara</button>
+            <div class="video-container">
+                <video id="testVideo" autoplay playsinline muted></video>
+            </div>
+            <div id="result-camara"></div>
+        </div>
+
+        <!-- Soluciones -->
+        <div class="soluciones">
+            <h2>💡 Soluciones por Tipo de Error</h2>
+
+            <div class="solucion">
+                <div class="solucion-titulo">❌ "Navegador no soporta videollamadas"</div>
+                <p>Tu navegador es muy antiguo o no soporta WebRTC.</p>
+                <p><strong>Solución:</strong></p>
+                <ol>
+                    <li>Descarga <strong>Chrome</strong> desde: https://www.google.com/chrome/</li>
+                    <li>O descarga <strong>Firefox</strong> desde: https://www.mozilla.org/firefox/</li>
+                    <li>O descarga <strong>Edge</strong> desde: https://www.microsoft.com/edge</li>
+                    <li>Intenta de nuevo con el navegador nuevo</li>
+                </ol>
+            </div>
+
+            <div class="solucion">
+                <div class="solucion-titulo">❌ "Se requiere HTTPS"</div>
+                <p>El sitio no está usando conexión segura (HTTPS).</p>
+                <p><strong>Solución para USUARIO en Red Local (Hamachi/VPN):</strong></p>
+                <ol>
+                    <li>Si accedes desde <strong>Hamachi</strong> (IP 25.x.x.x):
+                        <ul>
+                            <li><strong>En Chrome:</strong> Ve a <code>chrome://flags/#unsafely-treat-insecure-origin-as-secure</code></li>
+                            <li>Busca "unsafely treat insecure origin as secure"</li>
+                            <li>Habilita la opción</li>
+                            <li>Agrega tu IP: <code>http://25.7.206.194</code></li>
+                            <li>Reinicia Chrome</li>
+                        </ul>
+                    </li>
+                    <li>Si accedes desde <strong>localhost</strong> (no necesitas nada, ya funciona)</li>
+                </ol>
+            </div>
+
+            <div class="solucion">
+                <div class="solucion-titulo">❌ "Acceso denegado: Permite acceso a cámara"</div>
+                <p>Bloqueaste el acceso a cámara o micrófono en el navegador.</p>
+                <p><strong>Solución:</strong></p>
+                <ol>
+                    <li>Haz clic en el icono de <strong>🔒 Candado</strong> en la barra de direcciones</li>
+                    <li>Busca "Cámara" y "Micrófono"</li>
+                    <li>Cambia de "Bloqueado" a "Permitir"</li>
+                    <li>Recarga la página (F5)</li>
+                    <li>Intenta encender la cámara nuevamente</li>
+                </ol>
+            </div>
+
+            <div class="solucion">
+                <div class="solucion-titulo">❌ "Cámara o micrófono no encontrados"</div>
+                <p>El dispositivo no tiene cámara o micrófono, o no están conectados.</p>
+                <p><strong>Solución:</strong></p>
+                <ol>
+                    <li>Verifica que tu dispositivo tenga cámara y micrófono integrados</li>
+                    <li>Si es una PC externa, conecta una cámara USB</li>
+                    <li>Verifica que en <strong>Configuración del Sistema > Privacidad</strong> esté permitido el acceso</li>
+                    <li>Reinicia el navegador</li>
+                </ol>
+            </div>
+
+            <div class="solucion">
+                <div class="solucion-titulo">❓ Otros Problemas</div>
+                <p><strong>Pasos de resolución general:</strong></p>
+                <ol>
+                    <li>Cierra todas las ventanas del navegador</li>
+                    <li>Reinicia tu computadora</li>
+                    <li>Abre de nuevo el navegador</li>
+                    <li>Vuelve a intentar</li>
+                </ol>
+                <p>Si aún no funciona, verifica en tu <strong>Configuración del Sistema > Privacidad > Cámara/Micrófono</strong> que las aplicaciones tengan permiso.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function verificarNavegador() {
+            const result = document.getElementById('result-navegador');
+            let html = '';
+
+            // Verificar información del navegador
+            const userAgent = navigator.userAgent;
+            const isChrome = /Chrome/.test(userAgent) && /Google Inc/.test(navigator.vendor);
+            const isFirefox = /Firefox/.test(userAgent);
+            const isEdge = /Edg/.test(userAgent);
+            const isSafari = /Safari/.test(userAgent) && !/Chrome/.test(userAgent);
+
+            let navegador = 'Desconocido';
+            if (isChrome) navegador = 'Google Chrome ✅';
+            else if (isFirefox) navegador = 'Mozilla Firefox ✅';
+            else if (isEdge) navegador = 'Microsoft Edge ✅';
+            else if (isSafari) navegador = 'Apple Safari ⚠️';
+
+            // Verificar WebRTC
+            const soportaWebRTC = !!(
+                window.RTCPeerConnection ||
+                window.webkitRTCPeerConnection ||
+                window.mozRTCPeerConnection
+            );
+
+            // Verificar getUserMedia
+            const soportaGetUserMedia = !!(
+                navigator.mediaDevices &&
+                navigator.mediaDevices.getUserMedia
+            );
+
+            html += `<div class="result ${soportaGetUserMedia ? 'success' : 'error'}">
+                <strong>Navegador:</strong> ${navegador}<br>
+                <strong>User Agent:</strong> ${userAgent.substring(0, 80)}...<br>
+            </div>`;
+
+            html += `<div class="result ${soportaGetUserMedia ? 'success' : 'error'}">
+                <strong>Soporte WebRTC:</strong> ${soportaWebRTC ? '✅ Soportado' : '❌ No soportado'}<br>
+                <strong>Soporte getUserMedia:</strong> ${soportaGetUserMedia ? '✅ Soportado' : '❌ No soportado'}
+            </div>`;
+
+            if (!soportaGetUserMedia) {
+                html += `<div class="result error">
+                    <strong>⚠️ PROBLEMA:</strong> Tu navegador no soporta acceso a cámara.<br>
+                    Por favor, usa <strong>Chrome</strong>, <strong>Firefox</strong> o <strong>Edge</strong> (versiones recientes).
+                </div>`;
+            }
+
+            result.innerHTML = html;
+        }
+
+        function verificarHTTPS() {
+            const result = document.getElementById('result-https');
+            const isHTTPS = window.location.protocol === 'https:';
+            const isLocalhost = window.location.hostname.includes('localhost') || 
+                              window.location.hostname === '127.0.0.1';
+
+            let html = `<div class="result ${isHTTPS || isLocalhost ? 'success' : 'warning'}">
+                <strong>Protocolo:</strong> ${isHTTPS ? 'HTTPS ✅' : 'HTTP'}<br>
+                <strong>Hostname:</strong> ${window.location.hostname}<br>
+                <strong>URL Completa:</strong> ${window.location.href}<br>
+            </div>`;
+
+            if (!isHTTPS && !isLocalhost) {
+                html += `<div class="result warning">
+                    <strong>⚠️ ADVERTENCIA:</strong> Estás usando HTTP (sin seguridad).<br>
+                    Los navegadores modernos requieren HTTPS o localhost para acceder a cámara.<br>
+                    <br>
+                    <strong>Soluciones:</strong><br>
+                    1. Si accedes desde Hamachi (IP 25.x.x.x), necesitas configurar Chrome flags<br>
+                    2. En Chrome: ve a <code>chrome://flags/#unsafely-treat-insecure-origin-as-secure</code><br>
+                    3. Agrega tu IP: <code>http://${window.location.hostname}</code><br>
+                    4. Reinicia Chrome
+                </div>`;
+            } else {
+                html += `<div class="result success">
+                    <strong>✅ OK:</strong> Tu conexión es segura o estás en localhost
+                </div>`;
+            }
+
+            result.innerHTML = html;
+        }
+
+        function verificarPermisos() {
+            const result = document.getElementById('result-permisos');
+            result.innerHTML = '<div class="result info">Solicitando permisos...</div>';
+
+            navigator.permissions.query({ name: 'camera' })
+                .then(permission => {
+                    let html = `<div class="result ${permission.state === 'granted' ? 'success' : 'warning'}">
+                        <strong>Cámara:</strong> ${permission.state.toUpperCase()}<br>
+                    </div>`;
+
+                    if (permission.state === 'denied') {
+                        html += `<div class="result error">
+                            <strong>❌ Cámara bloqueada.</strong><br>
+                            Para permitirla:<br>
+                            1. Haz clic en 🔒 Candado en la barra de direcciones<br>
+                            2. Cambia "Cámara" a "Permitir"<br>
+                            3. Recarga la página
+                        </div>`;
+                    }
+
+                    result.innerHTML = html;
+                })
+                .catch(err => {
+                    result.innerHTML = `<div class="result error">
+                        <strong>❌ Error:</strong> ${err.message}
+                    </div>`;
+                });
+        }
+
+        async function listarDispositivos() {
+            const result = document.getElementById('result-dispositivos');
+            result.innerHTML = '<div class="result info">Buscando dispositivos...</div>';
+
+            try {
+                const devices = await navigator.mediaDevices.enumerateDevices();
+                
+                let camaras = devices.filter(d => d.kind === 'videoinput');
+                let microfonos = devices.filter(d => d.kind === 'audioinput');
+
+                let html = '';
+
+                if (camaras.length > 0) {
+                    html += `<div class="result success">
+                        <strong>📹 Cámaras encontradas (${camaras.length}):</strong><br>`;
+                    camaras.forEach((cam, i) => {
+                        html += `${i + 1}. ${cam.label || 'Cámara ' + (i + 1)}<br>`;
+                    });
+                    html += `</div>`;
+                } else {
+                    html += `<div class="result error">
+                        <strong>❌ No se encontraron cámaras</strong><br>
+                        Verifica que tu dispositivo tenga cámara integrada o conectada.
+                    </div>`;
+                }
+
+                if (microfonos.length > 0) {
+                    html += `<div class="result success">
+                        <strong>🎤 Micrófonos encontrados (${microfonos.length}):</strong><br>`;
+                    microfonos.forEach((mic, i) => {
+                        html += `${i + 1}. ${mic.label || 'Micrófono ' + (i + 1)}<br>`;
+                    });
+                    html += `</div>`;
+                } else {
+                    html += `<div class="result error">
+                        <strong>❌ No se encontraron micrófonos</strong><br>
+                        Verifica que tu dispositivo tenga micrófono integrado o conectado.
+                    </div>`;
+                }
+
+                result.innerHTML = html;
+            } catch (err) {
+                result.innerHTML = `<div class="result error">
+                    <strong>❌ Error:</strong> ${err.message}
+                </div>`;
+            }
+        }
+
+        async function probarCamara() {
+            const result = document.getElementById('result-camara');
+            const video = document.getElementById('testVideo');
+
+            result.innerHTML = '<div class="result info">🎥 Solicitando acceso a cámara...</div>';
+
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({
+                    video: { width: { ideal: 640 }, height: { ideal: 480 } },
+                    audio: true
+                });
+
+                video.srcObject = stream;
+                video.style.display = 'block';
+
+                result.innerHTML = `<div class="result success">
+                    <strong>✅ ¡Cámara funcionando!</strong><br>
+                    Deberías ver tu video arriba. Si no aparece, intenta recargando la página.
+                </div>`;
+            } catch (err) {
+                video.style.display = 'none';
+                
+                let mensaje = err.message;
+                let tipoError = 'error';
+
+                if (err.name === 'NotAllowedError') {
+                    mensaje = '❌ ACCESO DENEGADO: Debes permitir acceso a la cámara en los ajustes del navegador';
+                    tipoError = 'error';
+                } else if (err.name === 'NotFoundError') {
+                    mensaje = '❌ CÁMARA NO ENCONTRADA: Tu dispositivo no tiene cámara o no está conectada';
+                    tipoError = 'error';
+                } else if (err.name === 'NotSecureError') {
+                    mensaje = '⚠️ CONEXIÓN NO SEGURA: Se requiere HTTPS. Si accedes desde Hamachi, configura Chrome flags.';
+                    tipoError = 'warning';
+                } else if (err.name === 'NotReadableError') {
+                    mensaje = '❌ CÁMARA EN USO: La cámara está siendo usada por otra aplicación o navegador';
+                    tipoError = 'error';
+                }
+
+                result.innerHTML = `<div class="result ${tipoError}">
+                    <strong>${mensaje}</strong><br>
+                    <strong>Código de error:</strong> ${err.name}
+                </div>`;
+            }
+        }
+
+        function apagarCamara() {
+            const video = document.getElementById('testVideo');
+            if (video.srcObject) {
+                video.srcObject.getTracks().forEach(track => track.stop());
+                video.srcObject = null;
+                video.style.display = 'none';
+            }
+            document.getElementById('result-camara').innerHTML = '<div class="result info">Cámara apagada</div>';
+        }
+
+        // Verificar al cargar
+        window.addEventListener('load', () => {
+            verificarNavegador();
+        });
+    </script>
+</body>
+</html>

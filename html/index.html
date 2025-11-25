@@ -4,29 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="../css/language.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
     <title>DrippKing</title>
 </head>
 <body>
+    <div class="language-switcher-top" id="languageSwitcher"></div>
     <div class="container">
         <div class="logo-container">
             <img id="DK_Logo" src="../assets/logo/regular/drippkinglogo.png" alt="DrippKing Logo">
         </div>
         <menu>
-            <button onclick="window.location.href='signup.html'">
+            <button onclick="window.location.href='signup.html'" data-i18n="signup.button">
                 Join Now!
             </button>
-            <button onclick="window.location.href='login.html'">
+            <button onclick="window.location.href='login.html'" data-i18n="login.button">
                 Welcome back!
                 <img src="../assets/general icons/crown.gif" alt="Animación para unirse" class="gif-en-boton">
             </button>
-            <a href="http://">Just Keeping An Eye</a>
+            <a href="ranking.html" data-i18n="ranking.title">Just Keeping An Eye</a>
         </menu>
-
-
     </div>
 
+    <script src="../js/translations.js"></script>
+    <script src="../js/languageSwitcher.js"></script>
 </body>
 </html>

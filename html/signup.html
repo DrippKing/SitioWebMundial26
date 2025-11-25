@@ -6,14 +6,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sign Up</title>
   <link rel="stylesheet" href="../css/signup.css">
+  <link rel="stylesheet" href="../css/language.css">
 </head>
 
 <body>
+  <div class="language-switcher-top" id="languageSwitcher"></div>
   <div class="container">
     <div class="left">
       <form action="../php/registro.php" method="POST" id="signup-form" enctype="multipart/form-data">
         <div class="form-group">
-          <label for="name">Name:</label>
+          <label for="name" data-i18n="signup.username">Name:</label>
           <input type="text" id="name" name="name">
         </div>
 
@@ -28,7 +30,7 @@
         </div>
 
         <div class="form-group">
-          <label for="email">Email:</label>
+          <label for="email" data-i18n="signup.email">Email:</label>
           <input type="email" id="email" name="email">
         </div>
 
@@ -38,7 +40,7 @@
         </div>
 
         <div class="form-group">
-          <label for="country">Country:</label>
+          <label for="country" data-i18n="signup.country">Country:</label>
           <select id="country" name="country">
             <option value="mx">🇲🇽 Mexico</option>
             <option value="us">🇺🇸 USA</option>
@@ -47,12 +49,12 @@
         </div>
 
         <div class="form-group">
-          <label for="username">Username:</label>
+          <label for="username" data-i18n="signup.username">Username:</label>
           <input type="text" id="username" name="username">
         </div>
 
         <div class="form-group">
-          <label for="password">Password:</label>
+          <label for="password" data-i18n="signup.password">Password:</label>
           <input type="password" id="password" name="password">
         </div>
 
@@ -72,14 +74,14 @@
       <div class="photo-section">
 
 
-        <button class="upload-btn" type="button" onclick="document.getElementById('pfp-upload').click()">
+        <button class="upload-btn" type="button" onclick="document.getElementById('pfp-upload').click()" data-i18n="profile.selectPhoto">
           UPLOAD PHOTO
         </button>
 
         <div class="photo-preview"></div>
       </div>
 
-      <button class="btn-continue" type="submit" form="signup-form">CONTINUE</button>
+      <button class="btn-continue" type="submit" form="signup-form" data-i18n="login.button">CONTINUE</button>
     </div>
 
     <script>
@@ -96,6 +98,8 @@
         }
       });
     </script>
+    <script src="../js/translations.js"></script>
+    <script src="../js/languageSwitcher.js"></script>
 </body>
 
 </html>

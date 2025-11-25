@@ -5,22 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Global Ranking Interface</title>
     <link rel="stylesheet" href="../css/ranking.css">
+    <link rel="stylesheet" href="../css/language.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&family=Teko:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 <body>
-
+    <div class="language-switcher-top" id="languageSwitcher"></div>
     <div class="main-container">
         <header class="main-header">
             <div class="header-title">
-                <h1>GLOBAL RANKING</h1>
+                <h1 data-i18n="ranking.title">GLOBAL RANKING</h1>
                 <i class="fas fa-running"></i>
             </div>
             <nav class="header-nav">
-                <button class="nav-btn">PROFILE</button>
-                <button class="nav-btn active">FULL GAMES</button>
+                <button class="nav-btn" onclick="window.location.href='profile.html'" data-i18n="nav.profile">PROFILE</button>
+                <button class="nav-btn active" onclick="window.location.href='games.html'" data-i18n="nav.games">FULL GAMES</button>
+                <button class="nav-btn" onclick="window.location.href='chats.html'" data-i18n="nav.chats">CHATS</button>
             </nav>
         </header>
 
@@ -28,89 +30,96 @@
             <table class="ranking-table">
                 <thead>
                     <tr>
-                        <th class="col-drippkingers">DRIPPKINGERS</th>
-                        <th class="col-score">SCORE</th>
-                        <th class="col-games">TOTAL GAMES</th>
-                        <th class="col-precision">PRECISION</th>
+                        <th class="col-drippkingers" data-i18n="ranking.player">DRIPPKINGERS</th>
+                        <th class="col-score" data-i18n="ranking.points">SCORE</th>
+                        <th class="col-games" data-i18n="games.leaderboard">TOTAL GAMES</th>
+                        <th class="col-precision" data-i18n="general.offline">PRECISION</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="ranking-body">
                     <tr>
-                        <td>
-                            <div class="user-info">
-                                <div class="user-icon"><i class="fas fa-user-ninja"></i></div>
-                                <span>Username 2</span>
-                                <img src="https://flagcdn.com/w40/mx.png" alt="Bandera de México" class="flag">
-                            </div>
+                        <td colspan="4" style="text-align:center; padding:20px;">
+                            <i class="fas fa-spinner fa-spin"></i> <span data-i18n="general.loading">Cargando ranking...</span>
                         </td>
-                        <td>500000</td>
-                        <td>60</td>
-                        <td>95%</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="user-info">
-                                <div class="user-icon"><i class="fas fa-user-ninja"></i></div>
-                                <span>Username 3</span>
-                                <img src="https://flagcdn.com/w40/gb.png" alt="Bandera de Reino Unido" class="flag">
-                            </div>
-                        </td>
-                        <td>450000</td>
-                        <td>65</td>
-                        <td>94%</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="user-info">
-                                <div class="user-icon"><i class="fas fa-user-ninja"></i></div>
-                                <span>Username 4</span>
-                                <img src="https://flagcdn.com/w40/es.png" alt="Bandera de España" class="flag">
-                            </div>
-                        </td>
-                        <td>500000</td>
-                        <td>75</td>
-                        <td>90%</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="user-info">
-                                <div class="user-icon"><i class="fas fa-user-ninja"></i></div>
-                                <span>Username 6</span>
-                                <img src="https://flagcdn.com/w40/mx.png" alt="Bandera de México" class="flag">
-                            </div>
-                        </td>
-                        <td>25000</td>
-                        <td>60</td>
-                        <td>85%</td>
-                    </tr>
-                    <tr>
-                        <td>
-                           <div class="user-info">
-                                <div class="user-icon"><i class="fas fa-user-ninja"></i></div>
-                                <span>Username 7</span>
-                                <img src="https://flagcdn.com/w40/gb.png" alt="Bandera de Reino Unido" class="flag">
-                            </div>
-                        </td>
-                        <td>500000</td>
-                        <td>60</td>
-                        <td>70%</td>
-                    </tr>
-                     <tr>
-                        <td>
-                           <div class="user-info">
-                                <div class="user-icon"><i class="fas fa-user-ninja"></i></div>
-                                <span>Username 8</span>
-                                <img src="https://flagcdn.com/w40/es.png" alt="Bandera de España" class="flag">
-                            </div>
-                        </td>
-                        <td>500000</td>
-                        <td>60</td>
-                        <td>74%</td>
                     </tr>
                 </tbody>
             </table>
         </main>
     </div>
+
+    <script>
+        async function cargarRanking() {
+            try {
+                const response = await fetch('../php/ranking_api.php');
+                const data = await response.json();
+                
+                if (!data.exito) {
+                    console.error('Error:', data.error);
+                    document.getElementById('ranking-body').innerHTML = 
+                        '<tr><td colspan="4" style="text-align:center;">Error al cargar el ranking</td></tr>';
+                    return;
+                }
+                
+                const tbody = document.getElementById('ranking-body');
+                tbody.innerHTML = '';
+                
+                data.ranking.forEach((usuario, index) => {
+                    // Obtener bandera por país
+                    const codigoPais = usuario.pais.toLowerCase();
+                    const urlBandera = `https://flagcdn.com/w40/${codigoPais}.png`;
+                    
+                    const fila = document.createElement('tr');
+                    
+                    const tdUsuario = document.createElement('td');
+                    tdUsuario.innerHTML = `
+                        <div class="user-info">
+                            <div class="user-icon">
+                                ${usuario.foto_perfil ? 
+                                    `<img src="../pictures/${usuario.foto_perfil}" alt="${usuario.usuario}" style="width:40px; height:40px; border-radius:50%; object-fit:cover;" onerror="this.src='../pictures/default.jpg'">` :
+                                    '<i class="fas fa-user-ninja"></i>'
+                                }
+                            </div>
+                            <span>${usuario.usuario}</span>
+                            <img src="${urlBandera}" alt="Bandera de ${codigoPais}" class="flag" onerror="this.style.display='none'">
+                        </div>
+                    `;
+                    
+                    const tdScore = document.createElement('td');
+                    tdScore.textContent = usuario.puntos.toLocaleString('es-ES');
+                    
+                    const tdGames = document.createElement('td');
+                    tdGames.textContent = usuario.total_predicciones;
+                    
+                    const tdPrecision = document.createElement('td');
+                    tdPrecision.textContent = usuario.precision.toFixed(1) + '%';
+                    
+                    fila.appendChild(tdUsuario);
+                    fila.appendChild(tdScore);
+                    fila.appendChild(tdGames);
+                    fila.appendChild(tdPrecision);
+                    
+                    tbody.appendChild(fila);
+                });
+                
+                if (data.ranking.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;">No hay usuarios en el ranking</td></tr>';
+                }
+                
+            } catch (error) {
+                console.error('Error al cargar ranking:', error);
+                document.getElementById('ranking-body').innerHTML = 
+                    '<tr><td colspan="4" style="text-align:center;">Error al cargar el ranking</td></tr>';
+            }
+        }
+        
+        // Cargar ranking al iniciar
+        cargarRanking();
+        
+        // Actualizar ranking cada 30 segundos
+        setInterval(cargarRanking, 30000);
+    </script>
+    <script src="../js/translations.js"></script>
+    <script src="../js/languageSwitcher.js"></script>
 
 </body>
 </html>

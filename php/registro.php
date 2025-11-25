@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 $host = "localhost";
 $usuario_db = "root";
@@ -65,8 +66,25 @@ $sql = "INSERT INTO usuarios (nombre, apellido1, apellido2, email, cumpleanos, p
     );
 
     if ($stmt->execute()) {
+        // Obtener el ID del usuario recién creado
+        $new_user_id = $conexion->insert_id;
+        
+        // Iniciar sesión automáticamente
+        $_SESSION['user_id'] = $new_user_id;
+        $_SESSION['username'] = $usuario;
+        
+        // Marcar como online
+        $update_stmt = $conexion->prepare("UPDATE usuarios SET is_online = 1, last_activity = NOW() WHERE id = ?");
+        $update_stmt->bind_param("i", $new_user_id);
+        $update_stmt->execute();
+        $update_stmt->close();
+        
+        $stmt->close();
+        $conexion->close();
+        
         echo "<h1>¡Registro Exitoso!</h1>";
         header("Location: ../html/games.html");
+        exit();
     } else {
         echo "<h1>🚨 Error de Registro:</h1><p>" . htmlspecialchars($error_msg) . "</p>";
     }

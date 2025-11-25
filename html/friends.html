@@ -5,53 +5,53 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Friends Interface</title>
     <link rel="stylesheet" href="../css/friends.css">
+    <link rel="stylesheet" href="../css/language.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Teko:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        .unread-badge {
+            background: #f44336;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            margin-left: 5px;
+        }
+        .avatar {
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-
+    <div class="language-switcher-top" id="languageSwitcher"></div>
     <div class="main-container">
         <header class="main-header">
             <div class="header-title">
-                <h1>FRIENDS</h1>
+                <h1 data-i18n="friends.title">FRIENDS</h1>
                 <i class="fas fa-running"></i>
             </div>
             <nav class="header-nav">
-                <button class="nav-btn">PROFILE</button>
-                <button class="nav-btn">FULL GAMES</button>
-                <button class="nav-btn active">CHATS</button> </nav>
+                <button class="nav-btn" onclick="window.location.href='profile.html'" data-i18n="nav.profile">PROFILE</button>
+                <button class="nav-btn" onclick="window.location.href='games.html'" data-i18n="nav.games">FULL GAMES</button>
+                <button class="nav-btn active" onclick="window.location.href='chats.html'" data-i18n="nav.chats">CHATS</button>
+            </nav>
         </header>
 
         <main class="content-area">
             <aside class="left-column">
                 <section class="friends-section">
-                    <h2>Your Friends</h2>
+                    <h2 data-i18n="friends.myFriends">Your Friends</h2>
                     <ul class="user-list">
-                        <li>
-                            <img src="https://i.pravatar.cc/150?u=jazmen2002" alt="Avatar" class="avatar">
-                            <span>Jazmen2002</span>
-                            <button class="btn-icon btn-remove"><i class="fas fa-times"></i></button>
-                        </li>
-                        <li>
-                            <img src="https://i.pravatar.cc/150?u=gaelkreis" alt="Avatar" class="avatar">
-                            <span>gaelkreis</span>
-                            <button class="btn-icon btn-remove"><i class="fas fa-times"></i></button>
-                        </li>
+                        <!-- Los amigos se cargarán dinámicamente -->
                     </ul>
                 </section>
 
                 <section class="friends-section">
-                    <h2>Friendship Requests</h2>
+                    <h2 data-i18n="friends.requests">Friendship Requests</h2>
                     <ul class="user-list">
-                        <li>
-                            <div class="user-icon"><i class="fas fa-user-ninja"></i></div>
-                            <span>Username 5</span>
-                            <img src="https://flagcdn.com/w40/mx.png" alt="Bandera de México" class="flag">
-                            <button class="btn-icon btn-accept"><i class="fas fa-check"></i></button>
-                            <button class="btn-icon btn-decline"><i class="fas fa-times"></i></button>
-                        </li>
+                        <!-- Las solicitudes se cargarán dinámicamente -->
                     </ul>
                 </section>
             </aside>
@@ -59,38 +59,27 @@
             <section class="right-column">
                 <div class="search-bar">
                     <i class="fas fa-search"></i>
-                    <input type="text" placeholder="Search">
-                    <button class="search-btn">SEARCH</button>
+                    <input type="text" data-i18n-placeholder="friends.search" placeholder="Search">
+                    <button class="search-btn" data-i18n="general.search">SEARCH</button>
                 </div>
 
                 <div class="results-list-container">
                     <h3>Results</h3>
                     <ul class="results-list">
-                        <li>
-                            <div class="user-icon"><i class="fas fa-user-ninja"></i></div>
-                            <span>Username 2</span>
-                            <img src="https://flagcdn.com/w40/mx.png" alt="Bandera de México" class="flag">
-                        </li>
-                        <li>
-                            <div class="user-icon"><i class="fas fa-user-ninja"></i></div>
-                            <span>Username 3</span>
-                            <img src="https://flagcdn.com/w40/gb.png" alt="Bandera de Reino Unido" class="flag">
-                        </li>
-                        <li class="active">
-                            <div class="user-icon"><i class="fas fa-user-ninja"></i></div>
-                            <span>Username 4</span>
-                            <img src="https://flagcdn.com/w40/es.png" alt="Bandera de España" class="flag">
-                        </li>
+                        <!-- Los resultados de búsqueda aparecerán aquí -->
                     </ul>
                 </div>
 
                 <div class="action-buttons">
-                    <button class="action-btn view-profile">VIEW PROFILE</button>
-                    <button class="action-btn add-friend">ADD FRIEND</button>
+                    <button class="action-btn view-profile" disabled>VIEW PROFILE</button>
+                    <button class="action-btn add-friend" disabled>ADD FRIEND</button>
                 </div>
             </section>
         </main>
     </div>
 
+    <script src="../js/friends.js"></script>
+    <script src="../js/translations.js"></script>
+    <script src="../js/languageSwitcher.js"></script>
 </body>
 </html>

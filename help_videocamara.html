@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¿Problemas con Cámara? - Solución Rápida</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            max-width: 600px;
+            text-align: center;
+        }
+        h1 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 2em;
+        }
+        .emoji {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+        .mensaje {
+            color: #666;
+            font-size: 1.1em;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        .botones {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+        .btn-secondary {
+            background: #f0f0f0;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+        .btn-secondary:hover {
+            background: #667eea;
+            color: white;
+        }
+        .pasos {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 30px 0;
+            text-align: left;
+        }
+        .paso {
+            margin: 15px 0;
+            padding: 15px;
+            background: white;
+            border-left: 4px solid #667eea;
+            border-radius: 5px;
+        }
+        .numero {
+            background: #667eea;
+            color: white;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 10px;
+            float: left;
+        }
+        .paso-texto {
+            margin-left: 40px;
+        }
+        code {
+            background: #f0f0f0;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-family: monospace;
+            color: #d63031;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="emoji">🎥</div>
+        <h1>¿Tu cámara no funciona?</h1>
+        
+        <div class="mensaje">
+            No te preocupes, tenemos la solución. Aquí hay 3 formas de resolver el problema:
+        </div>
+
+        <div class="pasos">
+            <div class="paso">
+                <div class="numero">1</div>
+                <div class="paso-texto">
+                    <strong>Diagnóstico Automático</strong><br>
+                    Una herramienta te dirá exactamente cuál es el problema
+                </div>
+            </div>
+
+            <div class="paso">
+                <div class="numero">2</div>
+                <div class="paso-texto">
+                    <strong>Instrucciones Paso a Paso</strong><br>
+                    Soluciones claras para cada error
+                </div>
+            </div>
+
+            <div class="paso">
+                <div class="numero">3</div>
+                <div class="paso-texto">
+                    <strong>Prueba en Tiempo Real</strong><br>
+                    Verifica si tu cámara funciona
+                </div>
+            </div>
+        </div>
+
+        <div class="botones">
+            <a href="diagnostico_videocamara.html" class="btn btn-primary">
+                🔧 Abrir Diagnóstico de Cámara
+            </a>
+            
+            <a href="SOLUCION_VIDEOCAMARA.md" class="btn btn-secondary">
+                📖 Leer Instrucciones Completas
+            </a>
+        </div>
+
+        <div style="margin-top: 30px; color: #999; font-size: 0.9em;">
+            <p>📱 Si accedes desde <strong>Hamachi</strong> (25.x.x.x), necesitarás configurar Chrome.</p>
+            <p>💡 Si usas <strong>localhost</strong>, todo debería funcionar sin configuración extra.</p>
+        </div>
+    </div>
+
+    <script>
+        // Redireccionar automáticamente después de 10 segundos si es necesario
+        // (solo para demostración, el usuario puede hacer clic antes)
+    </script>
+</body>
+</html>

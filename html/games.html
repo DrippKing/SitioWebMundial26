@@ -4,94 +4,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game Interface</title>
+    <title>Simulador Mundial 2026</title>
     <link rel="stylesheet" href="../css/games.css">
+    <link rel="stylesheet" href="../css/language.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
-
+    <div class="language-switcher-top" id="languageSwitcher"></div>
     <main class="main-container">
         <aside class="left-panel">
             <nav class="navigation">
-                <button>PROFILE</button>
-                <button onclick="window.location.href='chats.html'">CHATS</button>
-                <button class="active">GLOBAL</button>
+                <button onclick="window.location.href='profile.html'" data-i18n="nav.profile">PROFILE</button>
+                <button onclick="window.location.href='chats.html'" data-i18n="nav.chats">CHATS</button>
+                <button onclick="window.location.href='friends.html'" data-i18n="nav.friends">FRIENDS</button>
+                <button class="active" data-i18n="nav.games">GAMES</button>
+                <button onclick="window.location.href='ranking.html'" data-i18n="ranking.title">GLOBAL</button>
             </nav>
 
             <div class="game-list-header">
-                <h2>GAME LIST</h2>
-                <div class="filter-bar">EVERY GAME EVERY TIME</div>
+                <h2 data-i18n="games.gameList">GAME LIST</h2>
+                <div class="filter-bar" data-i18n="games.everyGame">EVERY GAME EVERY TIME</div>
             </div>
 
-            <ul class="game-list">
+            <!-- Filtros de Fase -->
+            <div class="phase-filters">
+                <select id="fase-select" class="phase-select">
+                    <option value="grupo" data-i18n="games.phaseGroup">FASE DE GRUPOS</option>
+                    <option value="octavos" data-i18n="games.phaseRound16">OCTAVOS DE FINAL</option>
+                    <option value="cuartos" data-i18n="games.phaseQuarter">CUARTOS DE FINAL</option>
+                    <option value="semifinal" data-i18n="games.phaseSemi">SEMIFINAL</option>
+                    <option value="final" data-i18n="games.phaseFinal">FINAL</option>
+                </select>
+                
+                <select id="grupo-select" class="grupo-select">
+                    <option value="A">GRUPO A</option>
+                    <option value="B">GRUPO B</option>
+                    <option value="C">GRUPO C</option>
+                    <option value="D">GRUPO D</option>
+                    <option value="E">GRUPO E</option>
+                    <option value="F">GRUPO F</option>
+                    <option value="G">GRUPO G</option>
+                    <option value="H">GRUPO H</option>
+                </select>
+
+                <select id="jornada-select" class="jornada-select">
+                    <option value="1" data-i18n="games.matchday1">JORNADA 1</option>
+                    <option value="2" data-i18n="games.matchday2">JORNADA 2</option>
+                    <option value="3" data-i18n="games.matchday3">JORNADA 3</option>
+                </select>
+            </div>
+
+            <ul class="game-list" id="partidos-list">
                 <li class="game-item">
-                    <span class="status now-playing">NOW PLAYING</span>
-                    <span class="teams">⚽ VS ⚽</span>
-                </li>
-                <li class="game-item highlighted">
-                    <span class="status concluded">CONCLUDED</span>
-                    <span class="teams">⚽ VS ⚽</span>
-                </li>
-                <li class="game-item">
-                    <span class="status on-time">ON TIME</span>
-                    <span class="teams">⚽ VS ⚽</span>
-                </li>
-                <li class="game-item">
-                    <span class="status on-time">ON TIME</span>
-                    <span class="teams">⚽ VS ⚽</span>
-                </li>
-                <li class="game-item">
-                    <span class="status now-playing">NOW PLAYING</span>
-                    <span class="teams">⚽ VS ⚽</span>
-                </li>
-                <li class="game-item">
-                    <span class="status on-time">ON TIME</span>
-                    <span class="teams">⚽ VS ⚽</span>
-                </li>
-                <li class="game-item">
-                    <span class="status concluded">CONCLUDED</span>
-                    <span class="teams">⚽ VS ⚽</span>
+                    <span class="status on-time" data-i18n="general.loading">CARGANDO</span>
+                    <span class="teams">...</span>
                 </li>
             </ul>
         </aside>
 
         <section class="right-panel">
             <header class="match-header">
-                <div class="header-label local">LOCAL</div>
-                <div class="header-label visitor">VISITOR</div>
+                <h2 id="jornada-title">JORNADA 1 - GRUPOS</h2>
             </header>
 
-            <div class="matchup">
-                <img src="https://upload.wikimedia.org/wikipedia/en/thumb/f/f3/Mexico_national_football_team_seal.svg/1200px-Mexico_national_football_team_seal.svg.png"
-                    alt="Logo de México" class="team-logo">
-                <span class="vs-text">VS</span>
-                <img src="https://upload.wikimedia.org/wikipedia/en/thumb/4/41/Italy_national_football_team_logo.svg/1200px-Italy_national_football_team_logo.svg.png"
-                    alt="Logo de Italia" class="team-logo">
+            <!-- Lista de todos los partidos de la jornada -->
+            <div id="partidos-jornada-list" class="partidos-jornada">
+                <div class="loading-partidos" data-i18n="games.loadingMatches">Cargando partidos...</div>
             </div>
 
-            <div class="match-info-card">
-                <div class="details">
-                    <h3>QUARTERFINALS</h3>
-                    <div class="info-item">
-                        <span class="label">PLACE:</span>
-                        <span class="value">Estadio Banamex, MTY, N.L.</span>
-                    </div>
-                    <div class="info-item">
-                        <span class="label">DRIPPKING POINTS:</span>
-                        <span class="value">500</span>
-                    </div>
-                </div>
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Estadio_de_Rayados_2018.jpg/1280px-Estadio_de_Rayados_2018.jpg"
-                    alt="Foto del Estadio" class="stadium-image">
-            </div>
-
-            <button class="vote-button">VOTE NOW!</button>
+            <button class="vote-button" id="save-all-predictions" data-i18n="games.saveAllPredictions">SAVE ALL PREDICTIONS</button>
         </section>
     </main>
 
+    <script src="../js/mundial.js"></script>
+    <script src="../js/translations.js"></script>
+    <script src="../js/languageSwitcher.js"></script>
 </body>
 
 </html>

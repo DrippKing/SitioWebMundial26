@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Resultados</title>
+    <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="../css/language.css">
+</head>
+<body>
+    <div class="language-switcher-top" id="languageSwitcher"></div>
+    <div class="container">
+        <header>
+            <h1 data-i18n="admin.title">🎯 PANEL DE ADMINISTRADOR</h1>
+            <button class="btn-logout" onclick="window.location.href='profile.html'" data-i18n="admin.backProfile">← Volver al Perfil</button>
+        </header>
+
+        <div class="stats-bar">
+            <div class="stat">
+                <span class="label" data-i18n="admin.finishedMatches">Partidos Finalizados:</span>
+                <span id="partidos-finalizados" class="value">0</span>
+            </div>
+            <div class="stat">
+                <span class="label" data-i18n="admin.pendingMatches">Partidos Pendientes:</span>
+                <span id="partidos-pendientes" class="value">0</span>
+            </div>
+            <div class="stat">
+                <span class="label" data-i18n="admin.totalPredictions">Total Predicciones:</span>
+                <span id="total-predicciones" class="value">0</span>
+            </div>
+        </div>
+
+        <div class="partidos-container">
+            <h2 data-i18n="admin.setResults">Establecer Resultados de Partidos</h2>
+            <div id="partidos-list" class="partidos-list">
+                <div class="loading" data-i18n="admin.loadingMatches">Cargando partidos...</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/admin.js"></script>
+    <script src="../js/translations.js"></script>
+    <script src="../js/languageSwitcher.js"></script>
+</body>
+</html>

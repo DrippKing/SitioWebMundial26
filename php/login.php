@@ -35,6 +35,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['username'] = $username_ingresado;
 
             $stmt->close();
+            
+            // Marcar usuario como online
+            $update_stmt = $conexion->prepare("UPDATE usuarios SET is_online = 1, last_activity = NOW() WHERE id = ?");
+            $update_stmt->bind_param("i", $user_id);
+            $update_stmt->execute();
+            $update_stmt->close();
+            
             $conexion->close();
             
             header("Location: ../html/chats.html"); 

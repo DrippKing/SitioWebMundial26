@@ -62,6 +62,25 @@ body {
     border: none;
     cursor: pointer;
 }
+
+.admin-btn {
+    background: linear-gradient(135deg, #e76f51 0%, #d45a3a 100%);
+    color: white;
+    border: 2px solid #f3d55b;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    margin-left: 10px;
+    transition: all 0.3s;
+}
+
+.admin-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(231, 111, 81, 0.4);
+}
+
 .already {
     grid-row: 3;
     margin-right: 60px;
@@ -108,6 +127,88 @@ body {
 
 .stats td {
     padding: 5px 20px;
+}
+
+/* Medallas */
+.medallas-container {
+    background: #222;
+    color: white;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.medallas-container h3 {
+    margin-bottom: 15px;
+    font-size: 1.2em;
+    color: #f3d55b;
+}
+
+.medallas-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    min-height: 100px;
+}
+
+.medalla-item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 15px;
+    background: linear-gradient(135deg, #2b2d31 0%, #1a1c1f 100%);
+    border-radius: 10px;
+    border: 2px solid #444;
+    transition: all 0.3s;
+    cursor: pointer;
+    min-width: 120px;
+}
+
+.medalla-item:hover {
+    border-color: #f3d55b;
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(243, 213, 91, 0.3);
+}
+
+.medalla-item img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    filter: drop-shadow(0 0 5px rgba(243, 213, 91, 0.5));
+}
+
+.medalla-nombre {
+    font-size: 0.85em;
+    font-weight: bold;
+    text-align: center;
+    color: #f3d55b;
+}
+
+.medalla-descripcion {
+    font-size: 0.75em;
+    color: #999;
+    text-align: center;
+    display: none;
+}
+
+.medalla-item:hover .medalla-descripcion {
+    display: block;
+}
+
+.medalla-fecha {
+    font-size: 0.7em;
+    color: #666;
+    margin-top: 5px;
+}
+
+.medallas-list .loading,
+.medallas-list .empty {
+    width: 100%;
+    text-align: center;
+    padding: 30px;
+    color: #666;
 }
 
 .tables{
@@ -185,3 +286,122 @@ body {
 .status.green { background: #4caf50; }
 .status.red { background: #e74c3c; }
 .status.yellow { background: #f1c40f; }
+
+/* Estilos mejorados para predicciones */
+.games .row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 15px;
+    background: #2b2d31;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    border-left: 4px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.games .row:hover {
+    background: #323438;
+    transform: translateX(5px);
+}
+
+.games .row.correcta {
+    border-left-color: #2a9d8f;
+}
+
+.games .row.incorrecta {
+    border-left-color: #e74c3c;
+}
+
+.games .row.pendiente {
+    border-left-color: #f39c12;
+}
+
+.row .icon {
+    font-size: 1.5em;
+    min-width: 30px;
+    text-align: center;
+}
+
+.row .status {
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.7em;
+    font-weight: bold;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.row .status.correcta {
+    background: #2a9d8f;
+    color: white;
+}
+
+.row .status.incorrecta {
+    background: #e74c3c;
+    color: white;
+}
+
+.row .status.pendiente {
+    background: #f39c12;
+    color: white;
+}
+
+.row .match-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.row .teams {
+    font-size: 0.95em;
+    font-weight: 600;
+    color: #e0e0e0;
+}
+
+.row .prediction {
+    font-size: 0.8em;
+    color: #999;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.row .prediction-score {
+    background: #1a1c1f;
+    padding: 2px 8px;
+    border-radius: 4px;
+    color: #e76f51;
+    font-weight: 600;
+}
+
+.row .points {
+    font-weight: bold;
+    font-size: 1em;
+    min-width: 55px;
+    text-align: right;
+}
+
+.row .points.ganados {
+    color: #2a9d8f;
+}
+
+.row .points.perdidos {
+    color: #e74c3c;
+}
+
+.row .points.pendiente {
+    color: #f39c12;
+}
+
+.row.loading, .row.empty, .row.error {
+    justify-content: center;
+    color: #999;
+    border-left-color: transparent;
+}
+
+.item.loading {
+    text-align: center;
+    color: #999;
+}

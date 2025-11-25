@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Test Encriptación</title>
+</head>
+<body>
+    <h2>Test de Encriptación</h2>
+    <input type="text" id="testInput" placeholder="Escribe un mensaje" value="Hola mundo">
+    <button onclick="testEncrypt()">Encriptar</button>
+    <button onclick="testDecrypt()">Desencriptar</button>
+    <div id="result"></div>
+
+    <script>
+        let encrypted = '';
+
+        const encryptMessage = (text) => {
+            const base64 = btoa(unescape(encodeURIComponent(text)));
+            const rotated = base64.split('').reverse().join('');
+            return rotated;
+        };
+
+        const decryptMessage = (encrypted) => {
+            try {
+                const unrotated = encrypted.split('').reverse().join('');
+                const decoded = decodeURIComponent(escape(atob(unrotated)));
+                return decoded;
+            } catch (e) {
+                return 'ERROR: ' + e.message;
+            }
+        };
+
+        function testEncrypt() {
+            const text = document.getElementById('testInput').value;
+            encrypted = encryptMessage(text);
+            document.getElementById('result').innerHTML = 
+                '<strong>Original:</strong> ' + text + '<br>' +
+                '<strong>Encriptado:</strong> ' + encrypted;
+        }
+
+        function testDecrypt() {
+            const decrypted = decryptMessage(encrypted);
+            document.getElementById('result').innerHTML += '<br>' +
+                '<strong>Desencriptado:</strong> ' + decrypted;
+        }
+    </script>
+</body>
+</html>

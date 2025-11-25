@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Translations</title>
+    <link rel="stylesheet" href="css/language.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .test-item {
+            margin: 10px 0;
+            padding: 10px;
+            background: #f9f9f9;
+        }
+        input, button {
+            padding: 8px;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="language-switcher-top" id="languageSwitcher"></div>
+    
+    <h1 data-i18n="nav.home">Inicio</h1>
+    
+    <div class="test-section">
+        <h2 data-i18n="login.title">Iniciar Sesión</h2>
+        <div class="test-item">
+            <label data-i18n="login.username">Usuario</label>
+            <input type="text" data-i18n-placeholder="login.username" placeholder="Usuario">
+        </div>
+        <div class="test-item">
+            <label data-i18n="login.password">Contraseña</label>
+            <input type="password" data-i18n-placeholder="login.password" placeholder="Contraseña">
+        </div>
+        <button data-i18n="login.button">Ingresar</button>
+    </div>
+
+    <div class="test-section">
+        <h2 data-i18n="chats.title">Mensajes</h2>
+        <div class="test-item">
+            <p data-i18n="chats.noContact">Selecciona un contacto para empezar a chatear</p>
+            <input type="text" data-i18n-placeholder="chats.search" placeholder="Buscar contactos...">
+            <button data-i18n="chats.videocall">Videollamada</button>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2 data-i18n="games.gameList">Lista de Juegos</h2>
+        <div class="test-item">
+            <p data-i18n="games.everyGame">Todos los Juegos</p>
+            <button data-i18n="games.saveAllPredictions">Guardar Todas las Predicciones</button>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2 data-i18n="ranking.title">Ranking Global</h2>
+        <div class="test-item">
+            <p data-i18n="ranking.loadingData">Cargando ranking...</p>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2 data-i18n="general.loading">Cargando...</h2>
+        <div class="test-item">
+            <p data-i18n="general.error">Error</p>
+            <p data-i18n="general.success">Éxito</p>
+            <p data-i18n="general.empty">Vacío</p>
+        </div>
+    </div>
+
+    <script src="js/translations.js"></script>
+    <script src="js/languageSwitcher.js"></script>
+    <script>
+        // Debug info
+        console.log('Page loaded');
+        console.log('Current language:', languageManager.getLanguage());
+        console.log('Number of translatable elements:', document.querySelectorAll('[data-i18n]').length);
+        
+        // Test if translations are applied
+        setTimeout(() => {
+            const testElement = document.querySelector('[data-i18n="login.title"]');
+            if (testElement) {
+                console.log('Test element found:', testElement.textContent);
+                if (testElement.textContent === 'Iniciar Sesión') {
+                    console.log('✅ TRANSLATIONS WORKING!');
+                } else {
+                    console.log('❌ Translation did not apply. Content:', testElement.textContent);
+                }
+            } else {
+                console.log('❌ Test element not found');
+            }
+        }, 100);
+    </script>
+</body>
+</html>

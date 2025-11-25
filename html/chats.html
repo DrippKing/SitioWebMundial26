@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chats Interface</title>
     <link rel="stylesheet" href="../css/chats.css">
+    <link rel="stylesheet" href="../css/language.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Teko:wght@700&display=swap"
@@ -18,103 +19,111 @@
     <div class="main-container">
         <header class="main-header">
             <div class="header-title">
-                <h1>CHATS</h1>
+                <h1 data-i18n="chats.title">CHATS</h1>
                 <i class="fas fa-running"></i>
             </div>
             <nav class="header-nav">
-                <button class="nav-btn active">PROFILE</button>
-                <button class="nav-btn">FULL GAMES</button>
-                <button class="nav-btn">FRIENDS</button>
+                <button class="nav-btn" onclick="window.location.href='profile.html'" data-i18n="nav.profile">PROFILE</button>
+                <button class="nav-btn" onclick="window.location.href='games.html'" data-i18n="nav.games">FULL GAMES</button>
+                <button class="nav-btn" onclick="window.location.href='friends.html'" data-i18n="nav.friends">FRIENDS</button>
+                <button class="nav-btn active" data-i18n="nav.chats">CHATS</button>
+                <div id="languageSwitcher"></div>
             </nav>
         </header>
 
         <div class="chat-layout">
             <aside class="contacts-panel">
-                <div class="contact-item active">
-                    <img src="https://i.pravatar.cc/150?u=jazmen2002" alt="Avatar" class="avatar">
-                    <span>Jazmen2002</span>
-                    <span class="notification-badge">4</span>
-                </div>
-                <div class="contact-item">
-                    <img src="https://i.pravatar.cc/150?u=gaelkreis" alt="Avatar" class="avatar">
-                    <span>gaelkreis</span>
-                </div>
-                <div class="contact-item channel">
-                    <span><i class="fas fa-crown"></i> TILINES <i class="fas fa-crown"></i></span>
-                </div>
-                <div class="contact-item">
-                    <span>LMEADOS</span>
-                </div>
+                <!-- Los contactos (amigos) se cargarán dinámicamente -->
             </aside>
 
             <main class="chat-panel">
                 <header class="chat-header">
                     <div class="user-info">
-                        <h3>Jazmen2002</h3>
+                        <h3 data-i18n="chats.noContact">Selecciona un contacto</h3>
                     </div>
                     <div class="chat-actions">
-                        <i class="fas fa-phone"></i>
-                        <i class="fas fa-video"></i>
+                        <i class="fas fa-phone" data-i18n-title="general.close" title="Llamada de audio"></i>
+                        <i class="fas fa-video" id="videoCallBtn" data-i18n-title="chats.videocall" title="Videollamada" style="cursor:pointer;"></i>
                     </div>
                 </header>
 
-                <div class="messages-area">
-                    <div class="message received">
-                        <img src="https://i.pravatar.cc/150?u=jazmen2002" alt="Avatar" class="avatar">
-                        <p>LAAA TAAAAN</p>
-                    </div>
-                    <div class="message received">
-                        <img src="https://i.pravatar.cc/150?u=jazmen2002" alt="Avatar" class="avatar">
-                        <p>Hola profe!!</p>
+                <!-- Panel de tareas LMEADOS (mostrado solo a miembros) -->
+                <div id="lmeados-tasks-banner" style="display:none; background:linear-gradient(to right, #ffb74d, #ffa726); padding:15px; border-radius:10px; margin-bottom:15px; box-shadow:0 2px 8px rgba(0,0,0,0.1);">
+                    <h3 style="margin:0 0 12px 0; color:#333; font-size:1.1em; display:flex; align-items:center; gap:8px;">
+                        📋 Tareas del grupo LMEADOS
+                    </h3>
+                    <div id="lmeados-tasks-container" style="overflow-x:auto;">
+                        <!-- Tabla de tareas se insertará aquí -->
                     </div>
                 </div>
 
+                <div class="messages-area">
+                    <!-- Los mensajes se cargarán al seleccionar un contacto -->
+                </div>
+
                 <div class="message-input-area">
-                    <input type="text" placeholder="Llevo 2 horas acá holaaa">
+                    <button class="encrypt-toggle-btn" id="encryptToggle" data-i18n-title="general.close" title="Activar/Desactivar encriptación">
+                        <i class="fas fa-lock-open"></i>
+                    </button>
+                    <button class="location-btn" id="locationBtn" data-i18n-title="general.close" title="Enviar ubicación actual">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </button>
+                    <input type="text" data-i18n-placeholder="chats.type" placeholder="Escribe un mensaje...">
                     <button class="icon-btn"><i class="fas fa-file-alt"></i></button>
                     <button class="send-btn"><i class="fas fa-paper-plane"></i></button>
                 </div>
             </main>
-
-            <aside class="notes-panel">
-                <header class="notes-header">
-                    <h3>LMEADOS <i class="fas fa-info-circle"></i></h3>
-                    <i class="fas fa-phone"></i>
-                </header>
-
-                <div class="checklist-box">
-                    <h4>CHECKLIST</h4>
-                    <div class="check-item">
-                        <input type="checkbox" id="task1" checked>
-                        <label for="task1">Avanzar POI</label>
-                    </div>
-                    <div class="check-item">
-                        <input type="checkbox" id="task2">
-                        <label for="task2">OV Modelos</label>
-                    </div>
-                </div>
-
-                <div class="notes-messages">
-                    <div class="message received">
-                        <img src="https://i.pravatar.cc/150?u=user3" alt="Avatar" class="avatar">
-                        <p>Ni pa' la muela chaparro</p>
-                    </div>
-                    <div class="message received">
-                        <img src="https://i.pravatar.cc/150?u=user4" alt="Avatar" class="avatar">
-                        <p>Una raya más al tigre</p>
-                    </div>
-                </div>
-
-                <div class="notes-input-area">
-                    <input type="text" placeholder="No los conozco">
-                    <button class="icon-btn add-btn"><i class="fas fa-plus"></i></button>
-                    <button class="icon-btn file-btn"><i class="fas fa-folder"></i></button>
-                    <button class="send-btn"><i class="fas fa-paper-plane"></i></button>
-                </div>
-            </aside>
         </div>
     </div>
+
+    <!-- Modal de Videollamada -->
+    <div id="videoCallModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:1000; flex-direction:column; align-items:center; justify-content:center;">
+        <div style="background:#1e1e1e; padding:20px; border-radius:15px; text-align:center; color:white; max-width:900px; width:90%;">
+            <h2 style="margin-top:0; color:#fff;" data-i18n="chats.videocall">Videollamada con <span id="videoCallContact"></span></h2>
+            
+            <div style="display:flex; gap:20px; margin:20px 0; justify-content:center;">
+                <div style="text-align:center;">
+                    <h4 style="margin:0 0 10px 0;" data-i18n="general.online">Tú</h4>
+                    <video id="localVideo" autoplay muted playsinline style="width:300px; height:225px; background:black; border-radius:10px; transform:scaleX(-1);"></video>
+                </div>
+                <div style="text-align:center;">
+                    <h4 style="margin:0 0 10px 0;" data-i18n="general.offline">Remoto</h4>
+                    <video id="remoteVideo" autoplay playsinline style="width:300px; height:225px; background:black; border-radius:10px;"></video>
+                </div>
+            </div>
+            
+            <div style="display:flex; gap:10px; justify-content:center; margin:20px 0;">
+                <button id="startCallBtn" style="padding:10px 20px; background:#4CAF50; color:white; border:none; border-radius:5px; cursor:pointer; font-size:14px;" data-i18n="general.online">
+                    <i class="fas fa-microphone"></i> Iniciar
+                </button>
+                <button id="stopCallBtn" style="padding:10px 20px; background:#f44336; color:white; border:none; border-radius:5px; cursor:pointer; font-size:14px; display:none;" data-i18n="general.close">
+                    <i class="fas fa-phone-slash"></i> Terminar
+                </button>
+                <button id="closeVideoCallBtn" style="padding:10px 20px; background:#666; color:white; border:none; border-radius:5px; cursor:pointer; font-size:14px;" data-i18n="general.close">
+                    <i class="fas fa-times"></i> Cerrar
+                </button>
+            </div>
+            
+            <div id="callStatus" style="margin-top:15px; font-size:14px; color:#aaa;"></div>
+        </div>
+    </div>
+
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <script src="../js/translations.js"></script>
+    <script src="../js/languageSwitcher.js"></script>
     <script src="../js/chat.js"></script>
+    <script src="../js/videocall.js"></script>
+    <script>
+        // Crear instancia global de VideoCallManager después de que chat.js esté listo
+        let videoCallManager = null;
+        document.addEventListener('DOMContentLoaded', () => {
+            // Pequeño retraso para asegurar que chat.js esté completamente cargado
+            setTimeout(() => {
+                videoCallManager = new VideoCallManager();
+                console.log('✨ VideoCallManager inicializado');
+            }, 100);
+        });
+    </script>
 </body>
 
 </html>
