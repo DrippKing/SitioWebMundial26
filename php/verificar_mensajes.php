@@ -1,5 +1,5 @@
 <?php
-$conexion = new mysqli('localhost', 'root', '', 'poi_database', 3307);
+require_once 'db_connection.php';
 
 echo "=== ÚLTIMOS 5 MENSAJES ===\n\n";
 $result = $conexion->query('SELECT id, sender_id, receiver_id, message_text, is_encrypted FROM mensajes ORDER BY id DESC LIMIT 5');

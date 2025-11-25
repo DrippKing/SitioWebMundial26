@@ -1,10 +1,7 @@
 <?php
-$conexion = new mysqli('localhost', 'root', '', 'poi_database', 3307);
+require_once 'db_connection.php';
 
-if ($conexion->connect_error) {
-    die("Error de conexión: " . $conexion->connect_error);
-}
-
+// El archivo db_connection.php ya se encarga de la conexión y de la gestión de errores.
 $sql = file_get_contents('ADD_ENCRYPTION_COLUMN.sql');
 
 if ($conexion->multi_query($sql)) {

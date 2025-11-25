@@ -3,18 +3,8 @@ session_start();
 
 header('Content-Type: application/json');
 
-$host = "localhost";
-$usuario_db = "root";
-$contrasena_db = "";
-$nombre_db = "poi_database";
-$port = 3307;
-
-$conexion = new mysqli($host, $usuario_db, $contrasena_db, $nombre_db, $port);
-
-if ($conexion->connect_error) {
-    http_response_code(500);
-    die(json_encode(["error" => "Error de conexión a la BD: " . $conexion->connect_error]));
-}
+require_once 'db_connection.php';
+// El archivo db_connection.php ya se encarga de la conexión y de la gestión de errores.
 $conexion->set_charset("utf8");
 
 

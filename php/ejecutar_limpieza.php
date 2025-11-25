@@ -1,16 +1,6 @@
 <?php
-// Ejecutar limpieza de usuarios de prueba
-$host = "localhost";
-$usuario_db = "root";
-$contrasena_db = "";
-$nombre_db = "poi_database";
-$port = 3307;
+require_once 'db_connection.php';
 
-$conexion = new mysqli($host, $usuario_db, $contrasena_db, $nombre_db, $port);
-
-if ($conexion->connect_error) {
-    die("❌ Error de conexión: " . $conexion->connect_error . "\n");
-}
 
 echo "🧹 Limpiando usuarios de prueba...\n\n";
 

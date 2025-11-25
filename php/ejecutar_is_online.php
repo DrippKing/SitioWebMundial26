@@ -1,17 +1,8 @@
 <?php
 // Ejecutar SQL para agregar columna is_online
-$host = "localhost";
-$usuario_db = "root";
-$contrasena_db = "";
-$nombre_db = "poi_database";
-$port = 3307;
+require_once 'db_connection.php';
 
-$conexion = new mysqli($host, $usuario_db, $contrasena_db, $nombre_db, $port);
-
-if ($conexion->connect_error) {
-    die("❌ Error de conexión: " . $conexion->connect_error . "\n");
-}
-
+// El archivo db_connection.php ya se encarga de la conexión y de la gestión de errores.
 $sql = file_get_contents('ADD_IS_ONLINE_COLUMN.sql');
 
 if ($conexion->multi_query($sql)) {

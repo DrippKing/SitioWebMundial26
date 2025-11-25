@@ -2,7 +2,7 @@
 header('Content-Type: application/json; charset=utf-8');
 
 try {
-    $conexion = new mysqli('localhost', 'root', '', 'poi_database', 3307);
+    require_once 'db_connection.php';
     $conexion->set_charset('utf8mb4');
     
     $reporte = [

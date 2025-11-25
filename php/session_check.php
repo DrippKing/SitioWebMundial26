@@ -10,18 +10,8 @@ if (!isset($_SESSION['user_id'])) {
 // Retornar datos del usuario en JSON
 header('Content-Type: application/json');
 
-$host = "localhost";
-$usuario_db = "root";
-$contrasena_db = "";
-$nombre_db = "poi_database";
-$port = 3307;
-
-$conexion = new mysqli($host, $usuario_db, $contrasena_db, $nombre_db, $port);
-
-if ($conexion->connect_error) {
-    echo json_encode(["error" => "Error de conexión"]);
-    exit();
-}
+require_once 'db_connection.php';
+// El archivo db_connection.php ya se encarga de la conexión y de la gestión de errores.
 
 $user_id = $_SESSION['user_id'];
 

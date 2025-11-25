@@ -10,17 +10,8 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 // Conexión a base de datos
-$host = "localhost";
-$port = "3307";
-$dbname = "poi_database";
-$username = "root";
-$password = "";
-
 try {
-    $conexion = new mysqli($host, $username, $password, $dbname, $port);
-    if ($conexion->connect_error) {
-        throw new Exception("Error de conexión: " . $conexion->connect_error);
-    }
+    require_once 'db_connection.php';
     $conexion->set_charset("utf8mb4");
 } catch (Exception $e) {
     http_response_code(500);

@@ -12,8 +12,7 @@ $info = [
 
 if (isset($_SESSION['user_id'])) {
     try {
-        $conexion = new mysqli('localhost', 'root', '', 'poi_database', 3307);
-        $conexion->set_charset('utf8mb4');
+        require_once 'db_connection.php';
         
         // Verificar si es miembro de LMEADOS (grupo ID 2)
         $stmt = $conexion->prepare("

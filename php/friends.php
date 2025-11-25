@@ -8,56 +8,46 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
-$host = "localhost";
-$usuario_db = "root";
-$contrasena_db = "";
-$nombre_db = "poi_database";
-$port = 3307;
-
-$conexion = new mysqli($host, $usuario_db, $contrasena_db, $nombre_db, $port);
-
-if ($conexion->connect_error) {
-    echo json_encode(["error" => "Error de conexión"]);
-    exit();
-}
+require_once 'db_connection.php';
 
 $my_user_id = $_SESSION['user_id'];
 $action = $_GET['action'] ?? $_POST['action'] ?? '';
 
 switch ($action) {
     case 'search_users':
-        searchUsers($conexion, $my_user_id);
+        searchUsers($my_user_id);
         break;
     case 'send_request':
-        sendFriendRequest($conexion, $my_user_id);
+        sendFriendRequest($my_user_id);
         break;
     case 'get_requests':
-        getFriendRequests($conexion, $my_user_id);
+        getFriendRequests($my_user_id);
         break;
     case 'respond_request':
-        respondToRequest($conexion, $my_user_id);
+        respondToRequest($my_user_id);
         break;
     case 'get_friends':
-        getFriends($conexion, $my_user_id);
+        getFriends($my_user_id);
         break;
     case 'remove_friend':
-        removeFriend($conexion, $my_user_id);
+        removeFriend($my_user_id);
         break;
     case 'get_user_info':
-        getUserInfo($conexion, $my_user_id);
+        getUserInfo($my_user_id);
         break;
     default:
         echo json_encode(["error" => "Acción no válida"]);
 }
 
-$conexion->close();
+
 
 // ========================================
 // FUNCIONES
 // ========================================
 
 // Buscar usuarios
-function searchUsers($conexion, $my_user_id) {
+function searchUsers($my_user_id) {
+    global $conexion;
     $query = $_GET['query'] ?? '';
     
     // Si query está vacío, buscar todos los usuarios
@@ -112,7 +102,8 @@ function searchUsers($conexion, $my_user_id) {
 }
 
 // Enviar solicitud de amistad
-function sendFriendRequest($conexion, $sender_id) {
+function sendFriendRequest($sender_id) {
+    global $conexion;
     $receiver_id = $_POST['receiver_id'] ?? 0;
     
     if (!is_numeric($receiver_id) || $receiver_id <= 0 || $receiver_id == $sender_id) {
@@ -151,7 +142,8 @@ function sendFriendRequest($conexion, $sender_id) {
 }
 
 // Obtener solicitudes recibidas
-function getFriendRequests($conexion, $my_user_id) {
+function getFriendRequests($my_user_id) {
+    global $conexion;
     $sql = "
         SELECT fr.id, fr.sender_id, u.usuario, u.foto_perfil, fr.created_at
         FROM friend_requests fr
@@ -181,7 +173,8 @@ function getFriendRequests($conexion, $my_user_id) {
 }
 
 // Responder a solicitud (aceptar/rechazar)
-function respondToRequest($conexion, $my_user_id) {
+function respondToRequest($my_user_id) {
+    global $conexion;
     $request_id = $_POST['request_id'] ?? 0;
     $action = $_POST['response'] ?? ''; // 'accept' o 'reject'
     
@@ -228,8 +221,8 @@ function respondToRequest($conexion, $my_user_id) {
             $friend_stmt->close();
             
             // Otorgar medalla de "Primer Amigo" si es su primer amigo
-            otorgarMedallaPrimerAmigo($conexion, $sender_id);
-            otorgarMedallaPrimerAmigo($conexion, $receiver_id);
+            otorgarMedallaPrimerAmigo($sender_id);
+            otorgarMedallaPrimerAmigo($receiver_id);
         }
         
         $conexion->commit();
@@ -242,7 +235,8 @@ function respondToRequest($conexion, $my_user_id) {
 }
 
 // Obtener lista de amigos
-function getFriends($conexion, $my_user_id) {
+function getFriends($my_user_id) {
+    global $conexion;
     $sql = "
         SELECT u.id, u.usuario, u.foto_perfil,
                (SELECT COUNT(*) FROM mensajes 
@@ -273,7 +267,8 @@ function getFriends($conexion, $my_user_id) {
 }
 
 // Eliminar amigo
-function removeFriend($conexion, $my_user_id) {
+function removeFriend($my_user_id) {
+    global $conexion;
     $friend_id = $_POST['friend_id'] ?? 0;
     
     if (!is_numeric($friend_id) || $friend_id <= 0) {
@@ -296,7 +291,8 @@ function removeFriend($conexion, $my_user_id) {
 }
 
 // Obtener información del usuario actual
-function getUserInfo($conexion, $my_user_id) {
+function getUserInfo($my_user_id) {
+    global $conexion;
     $sql = "SELECT id, usuario, foto_perfil FROM usuarios WHERE id = ?";
     $stmt = $conexion->prepare($sql);
     $stmt->bind_param("i", $my_user_id);
@@ -317,7 +313,8 @@ function getUserInfo($conexion, $my_user_id) {
 }
 
 // Otorgar medalla de primer amigo
-function otorgarMedallaPrimerAmigo($conexion, $usuario_id) {
+function otorgarMedallaPrimerAmigo($usuario_id) {
+    global $conexion;
     // Verificar si ya tiene la medalla
     $check_sql = "
         SELECT um.id 

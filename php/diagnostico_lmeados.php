@@ -4,10 +4,8 @@
 header('Content-Type: application/json; charset=utf-8');
 
 try {
-    $conexion = new mysqli('localhost', 'root', '', 'poi_database', 3307);
-    if ($conexion->connect_error) {
-        throw new Exception("Error de conexión: " . $conexion->connect_error);
-    }
+    require_once 'db_connection.php';
+    // El archivo db_connection.php ya se encarga de la conexión y de la gestión de errores.
     $conexion->set_charset('utf8mb4');
     
     $diagnostico = [];

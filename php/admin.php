@@ -9,38 +9,21 @@ if (!isset($_SESSION['user_id']) || $_SESSION['user_id'] != 1) { // Solo el user
     exit;
 }
 
-// Conexión a base de datos
-$host = "localhost";
-$port = "3307";
-$dbname = "poi_database";
-$username = "root";
-$password = "";
-
-try {
-    $conexion = new mysqli($host, $username, $password, $dbname, $port);
-    if ($conexion->connect_error) {
-        throw new Exception("Error de conexión: " . $conexion->connect_error);
-    }
-    $conexion->set_charset("utf8mb4");
-} catch (Exception $e) {
-    http_response_code(500);
-    echo json_encode(['error' => 'Error de conexión a base de datos']);
-    exit;
-}
+require_once 'db_connection.php';
 
 $action = $_GET['action'] ?? $_POST['action'] ?? '';
 
 switch ($action) {
     case 'get_partidos_pendientes':
-        getPartidosPendientes($conexion);
+        getPartidosPendientes();
         break;
     
     case 'set_resultado':
-        setResultado($conexion);
+        setResultado();
         break;
     
     case 'get_all_partidos':
-        getAllPartidos($conexion);
+        getAllPartidos();
         break;
     
     default:
@@ -49,14 +32,15 @@ switch ($action) {
         break;
 }
 
-$conexion->close();
+
 
 // ========================================
 // FUNCIONES
 // ========================================
 
 // Obtener partidos pendientes de resultado
-function getPartidosPendientes($conexion) {
+function getPartidosPendientes() {
+    global $conexion;
     $sql = "
         SELECT 
             p.id,
@@ -116,12 +100,14 @@ function getPartidosPendientes($conexion) {
 }
 
 // Obtener todos los partidos
-function getAllPartidos($conexion) {
+function getAllPartidos() {
+    global $conexion;
     getPartidosPendientes($conexion);
 }
 
 // Establecer resultado de un partido
-function setResultado($conexion) {
+function setResultado() {
+    global $conexion;
     $partido_id = $_POST['partido_id'] ?? 0;
     $goles_local = $_POST['goles_local'] ?? null;
     $goles_visitante = $_POST['goles_visitante'] ?? null;
@@ -154,10 +140,10 @@ function setResultado($conexion) {
         $stmt->close();
         
         // Calcular puntos para todas las predicciones de este partido
-        calcularPuntos($conexion, $partido_id, $goles_local, $goles_visitante, $penales_local, $penales_visitante);
+        calcularPuntos($partido_id, $goles_local, $goles_visitante, $penales_local, $penales_visitante);
         
         // Verificar y otorgar medallas
-        verificarMedallas($conexion);
+        verificarMedallas();
         
         $conexion->commit();
         
@@ -170,7 +156,8 @@ function setResultado($conexion) {
 }
 
 // Calcular puntos de predicciones
-function calcularPuntos($conexion, $partido_id, $goles_local, $goles_visitante, $penales_local, $penales_visitante) {
+function calcularPuntos($partido_id, $goles_local, $goles_visitante, $penales_local, $penales_visitante) {
+    global $conexion;
     // Obtener todas las predicciones de este partido
     $sql = "SELECT * FROM predicciones WHERE partido_id = ?";
     $stmt = $conexion->prepare($sql);
@@ -232,14 +219,15 @@ function calcularPuntos($conexion, $partido_id, $goles_local, $goles_visitante, 
         $update_stmt->close();
         
         // Actualizar tabla de puntuaciones del torneo
-        actualizarPuntuacionesTorneo($conexion, $pred['usuario_id'], $puntos);
+        actualizarPuntuacionesTorneo($pred['usuario_id'], $puntos);
     }
     
     $stmt->close();
 }
 
 // Actualizar puntuaciones del torneo
-function actualizarPuntuacionesTorneo($conexion, $usuario_id, $puntos) {
+function actualizarPuntuacionesTorneo($usuario_id, $puntos) {
+    global $conexion;
     // Verificar si existe registro
     $check_sql = "SELECT * FROM puntuaciones_torneo WHERE usuario_id = ?";
     $check_stmt = $conexion->prepare($check_sql);
@@ -278,7 +266,8 @@ function actualizarPuntuacionesTorneo($conexion, $usuario_id, $puntos) {
 }
 
 // Verificar y otorgar medallas a todos los usuarios
-function verificarMedallas($conexion) {
+function verificarMedallas() {
+    global $conexion;
     // Obtener todos los usuarios
     $usuarios_sql = "SELECT id FROM usuarios";
     $usuarios_result = $conexion->query($usuarios_sql);
@@ -295,7 +284,7 @@ function verificarMedallas($conexion) {
         $amigos = $amigos_result->fetch_assoc();
         
         if ($amigos['total'] >= 1) {
-            otorgarMedalla($conexion, $usuario_id, 'primer_amigo');
+            otorgarMedalla($usuario_id, 'primer_amigo');
         }
         $amigos_stmt->close();
         
@@ -312,15 +301,15 @@ function verificarMedallas($conexion) {
             $derrotas = $stats['predicciones_incorrectas'];
             
             if ($victorias >= 1) {
-                otorgarMedalla($conexion, $usuario_id, 'primera_victoria');
+                otorgarMedalla($usuario_id, 'primera_victoria');
             }
             
             if ($derrotas >= 1) {
-                otorgarMedalla($conexion, $usuario_id, 'primera_derrota');
+                otorgarMedalla($usuario_id, 'primera_derrota');
             }
             
             if ($derrotas >= 10) {
-                otorgarMedalla($conexion, $usuario_id, 'salado');
+                otorgarMedalla($usuario_id, 'salado');
             }
         }
         $stats_stmt->close();
@@ -328,7 +317,8 @@ function verificarMedallas($conexion) {
 }
 
 // Otorgar medalla de top global al finalizar el torneo
-function otorgarMedallasTopGlobal($conexion) {
+function otorgarMedallasTopGlobal() {
+    global $conexion;
     // Obtener top 3 del ranking
     $ranking_sql = "
         SELECT usuario_id 
@@ -339,12 +329,13 @@ function otorgarMedallasTopGlobal($conexion) {
     $ranking_result = $conexion->query($ranking_sql);
     
     while ($row = $ranking_result->fetch_assoc()) {
-        otorgarMedalla($conexion, $row['usuario_id'], 'top_global');
+        otorgarMedalla($row['usuario_id'], 'top_global');
     }
 }
 
 // Otorgar medalla a un usuario
-function otorgarMedalla($conexion, $usuario_id, $codigo_medalla) {
+function otorgarMedalla($usuario_id, $codigo_medalla) {
+    global $conexion;
     // Obtener ID de la medalla
     $medalla_sql = "SELECT id FROM medallas WHERE codigo = ? AND activa = TRUE";
     $medalla_stmt = $conexion->prepare($medalla_sql);
