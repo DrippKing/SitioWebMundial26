@@ -24,7 +24,7 @@ echo "<style>
 // Test 1: Conexión a la base de datos
 echo "<div class='box'>";
 echo "<h2>1️⃣ Prueba de Conexión a la Base de Datos</h2>";
-$conexion = new mysqli($host, $usuario_db, $contrasena_db, $nombre_db, $port);
+$conexion = new mysqli('drippking.com', 'drippkin_Host', 'Drippking5545', 'Drippkin_poi_database', 3306);
 
 if ($conexion->connect_error) {
     echo "<p class='error'>❌ Error: " . $conexion->connect_error . "</p>";

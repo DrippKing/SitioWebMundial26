@@ -2,7 +2,7 @@
 header('Content-Type: application/json; charset=utf-8');
 
 try {
-    $conexion = new mysqli('localhost', 'root', '', 'poi_database', 3307);
+    $conexion = new mysqli('drippking.com', 'drippkin_Host', 'Drippking5545', 'Drippkin_poi_database', 3306);
     $conexion->set_charset('utf8mb4');
     
     // Agregar LaaaTaaan (ID 6) al grupo LMEADOS (ID 2)

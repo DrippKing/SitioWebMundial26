@@ -5,7 +5,7 @@ header('Content-Type: application/json; charset=utf-8');
 
 $test_user_id = 1; // eljazmen
 
-$conexion = new mysqli('localhost', 'root', '', 'poi_database', 3307);
+$conexion = new mysqli('drippking.com', 'drippkin_Host', 'Drippking5545', 'Drippkin_poi_database', 3306);
 $conexion->set_charset('utf8mb4');
 
 if ($conexion->connect_error) {
