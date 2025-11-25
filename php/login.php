@@ -1,4 +1,9 @@
 <?php
+// Líneas para mostrar todos los errores de PHP (útil para depuración)
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 session_start();
 
 require_once 'db_connection.php';
